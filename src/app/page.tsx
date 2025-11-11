@@ -193,12 +193,12 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-8 lg:flex-row">
-            <div className="grid flex-1 grid-cols-1 gap-6 md:grid-cols-2">
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_259px]">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               {storyCards.map((story) => (
                 <article
                   key={story.id}
-                  className={`relative overflow-hidden rounded-[32px] border border-white/10 ${story.layout ?? ""}`}
+                  className={`relative overflow-hidden rounded-4xl border border-white/10 ${story.layout ?? ""}`}
                   style={{ background: story.background }}
                 >
                   <div className="absolute inset-0 opacity-40 mix-blend-screen bg-[repeating-linear-gradient(45deg,_rgba(255,255,255,0.05)_0,_rgba(255,255,255,0.05)_2px,_transparent_2px,_transparent_8px)]" />
@@ -229,8 +229,8 @@ export default function Home() {
               ))}
             </div>
 
-            <aside className="w-full lg:w-[280px] xl:w-[320px]">
-              <h2 className="text-xl font-semibold text-white">Most viewed</h2>
+            <aside className="w-full">
+              <h2 className="text-md font-semibold text-white">Most viewed</h2>
               <div className="mt-6 space-y-5">
                 {mostViewed.map((item) => (
                   <article
@@ -238,12 +238,12 @@ export default function Home() {
                     className="flex gap-4 border-b border-white/5 pb-5 last:border-b-0 last:pb-0"
                   >
                     <div className="space-y-2">
-                      <p className="text-md font-semibold leading-snug text-muted">
+                      <p className="text-sm font-semibold leading-snug text-muted">
                         {item.title}
                       </p>
                     </div>
                     <div
-                      className="h-20 w-20 flex-shrink-0 border border-white/10"
+                      className="h-17 w-17 flex-shrink-0 border border-white/10"
                       style={{ background: item.accent }}
                     />
                   </article>
