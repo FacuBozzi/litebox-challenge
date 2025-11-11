@@ -18,7 +18,7 @@ const heroStory = {
     "The kids’ creator economy is already being reshaped by synthesized hosts and endless auto-generated episodes. The platforms are trying to keep up.",
   readTime: "6 mins",
   background:
-    "radial-gradient(circle at 20% 30%, rgba(222,120,255,0.35), transparent 55%), radial-gradient(circle at 80% 20%, rgba(96,237,255,0.35), transparent 45%), linear-gradient(115deg, rgba(10,10,15,0.95), rgba(83,48,173,0.95) 35%, rgba(250,17,129,0.75))",
+    "url('/demo-blog-images/hero-image.png') center center / cover no-repeat",
 };
 
 type StoryCard = {
@@ -139,7 +139,7 @@ export default function Home() {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.08),_transparent_55%)]" />
             <div className="relative flex flex-col gap-8 p-8 md:flex-row md:items-end md:justify-between md:gap-12 md:p-14">
               <div className="max-w-2xl space-y-4">
-                <div className="inline-flex items-center gap-2 rounded-full bg-[#c3ff3c] px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-black">
+                <div className="inline-flex items-center gap-2 rounded-full bg-[#c3ff3c] px-4 py-1 text-xs font-semibold  text-black">
                   {heroStory.category}
                 </div>
                 <h1 className="text-3xl font-semibold leading-tight text-white md:text-4xl">
