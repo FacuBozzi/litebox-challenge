@@ -5,6 +5,7 @@ import Image from "next/image";
 const topics = [
   { label: "All", active: true },
   { label: "Diversity & Inclusion", active: true },
+  { label: "Tech companies" },
   { label: "Tech companies", active: true },
   { label: "Crypto" },
   { label: "Security" },
@@ -164,27 +165,32 @@ export default function Home() {
           </article>
         </section>
 
-        <section className="space-y-6">
-          <div className="flex flex-wrap gap-3">
-            {topics.map((topic) => (
-              <button
-                key={topic.label}
-                className={`flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-wide transition ${
-                  topic.active
-                    ? "border-transparent bg-background-yellow text-black"
-                    : "border-white/15 bg-black/30 text-muted hover:text-white"
-                }`}
-              >
-                {topic.label}
-                <span
-                  className={`text-[10px] ${
-                    topic.active ? "text-black/70" : "text-muted"
+        <section className="space-y-6 mt-5">
+          <div className="flex items-center">
+            <p className="font-bold mr-5">Topics</p>
+            <div className="flex flex-wrap gap-2">
+              {topics.map((topic, index) => (
+                <button
+                  key={index}
+                  className={`flex items-end gap-2 rounded-full border px-3 py-2 text-sm font-normal transition ${
+                    topic.active
+                      ? "border-transparent bg-background-yellow text-black"
+                      : "border-white/15 bg-black/30 text-muted hover:text-white"
                   }`}
                 >
-                  ✕
-                </span>
-              </button>
-            ))}
+                  {topic.label}
+                  {topic.active && (
+                    <span
+                      className={`text-[13px] ${
+                        topic.active ? "text-black/70" : "text-muted"
+                      }`}
+                    >
+                      ✕
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="flex flex-col gap-8 lg:flex-row">
