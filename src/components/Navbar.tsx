@@ -12,7 +12,7 @@ export function Navbar() {
           alt="Lite-Tech logo"
         />
       </div>
-      <button className="group flex items-center justify-end gap-3 text-sm font-semibold text-white transition hover:text-[#c3ff3c]">
+      <button className="group flex items-center justify-end gap-1 text-sm font-semibold text-white transition hover:text-[#c3ff3c]">
         <span>New post</span>
         <ArrowIcon className="h-6 w-6" />
       </button>

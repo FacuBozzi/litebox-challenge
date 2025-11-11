@@ -132,12 +132,12 @@ export default function Home() {
         <section className="space-y-5">
           <p className="text-md font-semibold text-white">Today story</p>
           <article
-            className="relative overflow-hidden border border-white/10"
+            className="relative h-80 flex items-center overflow-hidden border border-white/10"
             style={{ background: heroStory.background }}
           >
             {/*<div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.08),_transparent_55%)]" />*/}
 
-            <div className="relative p-8 md:p-14">
+            <div className="relative ml-7">
               {/* Black clipped hero card */}
               <div className="w-48 pl-6 h-12 bg-black flex items-end">
                 <div className="inline-flex items-center gap-2 rounded-full bg-background-yellow px-3 py-[0.3rem] text-xs font-semibold text-black">
@@ -150,20 +150,14 @@ export default function Home() {
                   {heroStory.title}
                 </h1>
                 <div className="flex mt-3 justify-between">
-                  <button className="flex items-center gap-px rounded-full text-sm font-semibold hover:bg-white/5">
+                  <button className="flex items-center gap-1 rounded-full text-sm font-semibold hover:bg-white/5">
                     Read
-                    <ArrowIcon className="h-6 w-6" />
+                    <ArrowIcon className="h-6 w-6" color="purple" />
                   </button>
-                  <div className="flex items-center font-normal gap-2 text-xs text-white/70">
+                  <div className="flex pr-6 items-center font-normal gap-2 text-sm text-muted">
                     <FileIcon className="h-4 w-4" />
                     {heroStory.readTime}
                   </div>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4 pt-4">
-                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-white/70">
-                  <FileIcon className="h-4 w-4" /> {heroStory.readTime}
                 </div>
               </div>
             </div>
@@ -178,13 +172,13 @@ export default function Home() {
                 className={`flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-wide transition ${
                   topic.active
                     ? "border-transparent bg-background-yellow text-black"
-                    : "border-white/15 bg-black/30 text-zinc-300 hover:text-white"
+                    : "border-white/15 bg-black/30 text-muted hover:text-white"
                 }`}
               >
                 {topic.label}
                 <span
                   className={`text-[10px] ${
-                    topic.active ? "text-black/70" : "text-zinc-500"
+                    topic.active ? "text-black/70" : "text-muted"
                   }`}
                 >
                   ✕
@@ -245,7 +239,7 @@ export default function Home() {
                       <p className="text-sm font-semibold leading-snug text-white">
                         {item.title}
                       </p>
-                      <p className="text-xs uppercase tracking-[0.3em] text-zinc-400">
+                      <p className="text-xs uppercase tracking-[0.3em] text-muted">
                         {item.meta}
                       </p>
                     </div>

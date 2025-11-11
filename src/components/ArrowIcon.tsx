@@ -2,12 +2,13 @@ import Image from "next/image";
 
 type ArrowIconProps = {
   className?: string;
+  color?: string;
 };
 
-export function ArrowIcon({ className }: ArrowIconProps) {
+export function ArrowIcon({ className, color = "yellow" }: ArrowIconProps) {
   return (
     <Image
-      src="/arrows/right-yellow-arrow.svg"
+      src={`/arrows/right-${color}-arrow.svg`}
       alt=""
       aria-hidden
       width={24}
