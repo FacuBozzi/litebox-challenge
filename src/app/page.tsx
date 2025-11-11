@@ -1,65 +1,284 @@
 import Image from "next/image";
 
+const topics = [
+  { label: "All", active: true },
+  { label: "Diversity & Inclusion", active: true },
+  { label: "Tech companies", active: true },
+  { label: "Crypto" },
+  { label: "Security" },
+  { label: "Global" },
+  { label: "Leaks" },
+];
+
+const heroStory = {
+  category: "Diversity & Inclusion",
+  title: "Your Kid May Already Be Watching AI-Generated Videos on YouTube",
+  summary:
+    "The kids’ creator economy is already being reshaped by synthesized hosts and endless auto-generated episodes. The platforms are trying to keep up.",
+  readTime: "6 mins",
+  background:
+    "radial-gradient(circle at 20% 30%, rgba(222,120,255,0.35), transparent 55%), radial-gradient(circle at 80% 20%, rgba(96,237,255,0.35), transparent 45%), linear-gradient(115deg, rgba(10,10,15,0.95), rgba(83,48,173,0.95) 35%, rgba(250,17,129,0.75))",
+};
+
+type StoryCard = {
+  id: string;
+  category: string;
+  title: string;
+  excerpt: string;
+  readTime: string;
+  accent: string;
+  background: string;
+  layout?: string;
+};
+
+const storyCards: StoryCard[] = [
+  {
+    id: "studio-breakfast",
+    category: "Tech companies",
+    title:
+      "Inside the studios reinventing corporate all-hands as immersive broadcasts",
+    excerpt:
+      "Lite Labs built a game-engine powered stage for founders to launch products straight to their employee base without rehearsals.",
+    readTime: "5 mins",
+    accent: "#c3ff3c",
+    background:
+      "radial-gradient(circle at 25% 20%, rgba(255,227,150,0.5), transparent 40%), radial-gradient(circle at 75% 30%, rgba(255,109,109,0.45), transparent 45%), linear-gradient(135deg, rgba(241,208,108,0.9), rgba(255,83,53,0.7))",
+    layout: "md:col-span-2 min-h-[320px]",
+  },
+  {
+    id: "crypto-crime",
+    category: "Crypto",
+    title:
+      "Binance’s top crypto crime investigator is being detained in Nigeria",
+    excerpt:
+      "Nigeria’s EFCC alleges policy violations as the exchange fights a $10B penalty.",
+    readTime: "6 mins",
+    accent: "#a4f6ff",
+    background:
+      "radial-gradient(circle at 20% 20%, rgba(75,255,155,0.4), transparent 40%), linear-gradient(140deg, rgba(9,56,25,0.95), rgba(11,100,71,0.85))",
+  },
+  {
+    id: "signal-room",
+    category: "Security",
+    title: "The war room where ethical hackers rehearse global ransom drills",
+    excerpt:
+      "Shadow rehearsals every week are helping airports build muscle-memory when the alarms go dark.",
+    readTime: "8 mins",
+    accent: "#bda6ff",
+    background:
+      "radial-gradient(circle at 80% 20%, rgba(93,173,255,0.4), transparent 45%), linear-gradient(145deg, rgba(8,12,33,0.95), rgba(50,68,110,0.9))",
+  },
+  {
+    id: "founder-hangout",
+    category: "Tech companies",
+    title:
+      "A stealth startup wants founders to treat LinkedIn like late-night TV",
+    excerpt:
+      "Litewave is paying on-air hosts to remix product launches into personality-driven talk shows.",
+    readTime: "4 mins",
+    accent: "#c3ff3c",
+    background:
+      "radial-gradient(circle at 15% 15%, rgba(195,255,60,0.35), transparent 40%), radial-gradient(circle at 75% 35%, rgba(255,131,208,0.3), transparent 40%), linear-gradient(135deg, rgba(28,28,28,0.95), rgba(18,18,18,0.85))",
+  },
+];
+
+const mostViewed = [
+  {
+    title: "Your TV sounds awful. These soundbars can fix that",
+    meta: "Gear • 9 mins",
+    accent:
+      "radial-gradient(circle at 20% 20%, rgba(255,196,241,0.5), transparent 60%), linear-gradient(135deg, #e000ff, #7700ff)",
+  },
+  {
+    title: "The small company at the center of “Gamergate 2.0”",
+    meta: "Culture • 7 mins",
+    accent:
+      "radial-gradient(circle at 70% 20%, rgba(255,210,136,0.6), transparent 55%), linear-gradient(135deg, #ff7a18, #ff0057)",
+  },
+  {
+    title:
+      "Craig Wright is not Bitcoin creator Satoshi Nakamoto, judge declares",
+    meta: "Courts • 5 mins",
+    accent:
+      "radial-gradient(circle at 20% 80%, rgba(182,208,255,0.55), transparent 50%), linear-gradient(135deg, #2f68ff, #11152b)",
+  },
+  {
+    title:
+      "Robert F. Kennedy Jr. targets a generation of politically disaffected, extremely online men",
+    meta: "Politics • 12 mins",
+    accent:
+      "radial-gradient(circle at 50% 30%, rgba(255,255,255,0.35), transparent 60%), linear-gradient(135deg, #ffef9f, #f0941f)",
+  },
+];
+
+const ArrowIcon = ({ className }: { className?: string }) => (
+  <Image
+    src="/arrows/right-yellow-arrow.svg"
+    alt=""
+    width={24}
+    height={10}
+    className={className}
+    priority={false}
+  />
+);
+
+const ClockIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" {...props}>
+    <circle cx="10" cy="10" r="7" strokeWidth={1.4} />
+    <path
+      d="M10 6.5V10l2.8 1.6"
+      strokeWidth={1.4}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+    <div className="min-h-screen bg-[#030304] px-4 py-6 text-white sm:px-8">
+      <div className="mx-auto flex max-w-6xl flex-col gap-10">
+        <header className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-4">
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+              src="/lite-tech/lite-tech-logo.svg"
+              width={150}
+              height={100}
+              alt="Lite-Tech logo"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+          </div>
+          <button className="group flex items-center justify-end gap-3 text-sm font-semibold text-white transition hover:text-[#c3ff3c]">
+            <span className="">New post</span>
+            <ArrowIcon className="h-6 w-6" />
+            {/*<span className="flex h-7 w-7 items-center justify-center rounded-full border border-[#c3ff3c] transition group-hover:translate-x-1 group-hover:border-white"></span>*/}
+          </button>
+        </header>
+
+        <section className="space-y-5">
+          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-zinc-500">
+            Today story
+          </p>
+          <article
+            className="relative overflow-hidden border border-white/10"
+            style={{ background: heroStory.background }}
           >
-            Documentation
-          </a>
-        </div>
-      </main>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.08),_transparent_55%)]" />
+            <div className="relative flex flex-col gap-8 p-8 md:flex-row md:items-end md:justify-between md:gap-12 md:p-14">
+              <div className="max-w-2xl space-y-4">
+                <div className="inline-flex items-center gap-2 rounded-full bg-[#c3ff3c] px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-black">
+                  {heroStory.category}
+                </div>
+                <h1 className="text-3xl font-semibold leading-tight text-white md:text-4xl">
+                  {heroStory.title}
+                </h1>
+                <p className="text-base text-white/80 md:text-lg">
+                  {heroStory.summary}
+                </p>
+              </div>
+              <div className="flex flex-col gap-4">
+                <button className="flex items-center gap-2 rounded-full border border-white/30 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:border-white hover:bg-white/5">
+                  Read
+                  <ArrowIcon className="h-4 w-4" />
+                </button>
+                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-white/70">
+                  <ClockIcon className="h-4 w-4" />
+                  {heroStory.readTime}
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section className="space-y-6">
+          <div className="flex flex-wrap gap-3">
+            {topics.map((topic) => (
+              <button
+                key={topic.label}
+                className={`flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-wide transition ${
+                  topic.active
+                    ? "border-transparent bg-[#c3ff3c] text-black"
+                    : "border-white/15 bg-black/30 text-zinc-300 hover:text-white"
+                }`}
+              >
+                {topic.label}
+                <span
+                  className={`text-[10px] ${
+                    topic.active ? "text-black/70" : "text-zinc-500"
+                  }`}
+                >
+                  ✕
+                </span>
+              </button>
+            ))}
+          </div>
+
+          <div className="flex flex-col gap-8 lg:flex-row">
+            <div className="grid flex-1 grid-cols-1 gap-6 md:grid-cols-2">
+              {storyCards.map((story) => (
+                <article
+                  key={story.id}
+                  className={`relative overflow-hidden rounded-[32px] border border-white/10 ${story.layout ?? ""}`}
+                  style={{ background: story.background }}
+                >
+                  <div className="absolute inset-0 opacity-40 mix-blend-screen bg-[repeating-linear-gradient(45deg,_rgba(255,255,255,0.05)_0,_rgba(255,255,255,0.05)_2px,_transparent_2px,_transparent_8px)]" />
+                  <div className="relative flex h-full flex-col gap-6 p-6">
+                    <div
+                      className="inline-flex w-fit items-center rounded-full px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em]"
+                      style={{
+                        color: "#050505",
+                        backgroundColor: story.accent,
+                      }}
+                    >
+                      {story.category}
+                    </div>
+                    <div className="space-y-3">
+                      <h3 className="text-2xl font-semibold leading-tight text-white">
+                        {story.title}
+                      </h3>
+                      <p className="text-sm text-white/80">{story.excerpt}</p>
+                    </div>
+                    <div className="mt-auto flex items-center justify-between text-sm font-medium text-white/80">
+                      <button className="group flex items-center gap-2 text-white transition hover:text-[#c3ff3c]">
+                        Read
+                        <ArrowIcon className="h-4 w-4 transition group-hover:translate-x-1" />
+                      </button>
+                      <div className="flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-white/70">
+                        <ClockIcon className="h-4 w-4" />
+                        {story.readTime}
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <aside className="w-full rounded-[32px] border border-white/10 bg-gradient-to-b from-white/5 to-transparent p-6 lg:w-[280px] xl:w-[320px]">
+              <h2 className="text-xl font-semibold text-white">Most viewed</h2>
+              <div className="mt-6 space-y-5">
+                {mostViewed.map((item) => (
+                  <article
+                    key={item.title}
+                    className="flex gap-4 border-b border-white/5 pb-5 last:border-b-0 last:pb-0"
+                  >
+                    <div
+                      className="h-16 w-16 flex-shrink-0 rounded-2xl border border-white/10"
+                      style={{ background: item.accent }}
+                    />
+                    <div className="space-y-2">
+                      <p className="text-sm font-semibold leading-snug text-white">
+                        {item.title}
+                      </p>
+                      <p className="text-xs uppercase tracking-[0.3em] text-zinc-400">
+                        {item.meta}
+                      </p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </aside>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }
