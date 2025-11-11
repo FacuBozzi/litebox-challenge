@@ -1,5 +1,6 @@
 import { ArrowIcon } from "@/components/ArrowIcon";
 import { Navbar } from "@/components/Navbar";
+import Image from "next/image";
 
 const topics = [
   { label: "All", active: true },
@@ -41,7 +42,7 @@ const storyCards: StoryCard[] = [
     excerpt:
       "Lite Labs built a game-engine powered stage for founders to launch products straight to their employee base without rehearsals.",
     readTime: "5 mins",
-    accent: "#c3ff3c",
+    accent: "var(--color-background-yellow)",
     background:
       "radial-gradient(circle at 25% 20%, rgba(255,227,150,0.5), transparent 40%), radial-gradient(circle at 75% 30%, rgba(255,109,109,0.45), transparent 45%), linear-gradient(135deg, rgba(241,208,108,0.9), rgba(255,83,53,0.7))",
     layout: "md:col-span-2 min-h-[320px]",
@@ -77,7 +78,7 @@ const storyCards: StoryCard[] = [
     excerpt:
       "Litewave is paying on-air hosts to remix product launches into personality-driven talk shows.",
     readTime: "4 mins",
-    accent: "#c3ff3c",
+    accent: "var(--color-background-yellow)",
     background:
       "radial-gradient(circle at 15% 15%, rgba(195,255,60,0.35), transparent 40%), radial-gradient(circle at 75% 35%, rgba(255,131,208,0.3), transparent 40%), linear-gradient(135deg, rgba(28,28,28,0.95), rgba(18,18,18,0.85))",
   },
@@ -112,16 +113,14 @@ const mostViewed = [
   },
 ];
 
-const ClockIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" {...props}>
-    <circle cx="10" cy="10" r="7" strokeWidth={1.4} />
-    <path
-      d="M10 6.5V10l2.8 1.6"
-      strokeWidth={1.4}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
+const FileIcon = ({ className = "w-5 h-5" }: { className?: string } = {}) => (
+  <Image
+    src="/misc/file-icon.svg"
+    alt="file icon"
+    width={20}
+    height={20}
+    className={className}
+  />
 );
 
 export default function Home() {
@@ -136,27 +135,35 @@ export default function Home() {
             className="relative overflow-hidden border border-white/10"
             style={{ background: heroStory.background }}
           >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.08),_transparent_55%)]" />
-            <div className="relative flex flex-col gap-8 p-8 md:flex-row md:items-end md:justify-between md:gap-12 md:p-14">
-              <div className="max-w-2xl space-y-4">
-                <div className="inline-flex items-center gap-2 rounded-full bg-[#c3ff3c] px-4 py-1 text-xs font-semibold  text-black">
+            {/*<div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.08),_transparent_55%)]" />*/}
+
+            <div className="relative p-8 md:p-14">
+              {/* Black clipped hero card */}
+              <div className="w-48 pl-6 h-12 bg-black flex items-end">
+                <div className="inline-flex items-center gap-2 rounded-full bg-background-yellow px-3 py-[0.3rem] text-xs font-semibold text-black">
                   {heroStory.category}
                 </div>
-                <h1 className="text-3xl font-semibold leading-tight text-white md:text-4xl">
+              </div>
+
+              <div className="w-123 px-0 py-6 pl-6 bg-black flex flex-col flex-start">
+                <h1 className="text-3xl md:text-4xl font-semibold leading-tight">
                   {heroStory.title}
                 </h1>
-                <p className="text-base text-white/80 md:text-lg">
-                  {heroStory.summary}
-                </p>
+                <div className="flex mt-3 justify-between">
+                  <button className="flex items-center gap-px rounded-full text-sm font-semibold hover:bg-white/5">
+                    Read
+                    <ArrowIcon className="h-6 w-6" />
+                  </button>
+                  <div className="flex items-center font-normal gap-2 text-xs text-white/70">
+                    <FileIcon className="h-4 w-4" />
+                    {heroStory.readTime}
+                  </div>
+                </div>
               </div>
-              <div className="flex flex-col gap-4">
-                <button className="flex items-center gap-2 rounded-full border border-white/30 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:border-white hover:bg-white/5">
-                  Read
-                  <ArrowIcon className="h-4 w-4" />
-                </button>
+
+              <div className="flex items-center gap-4 pt-4">
                 <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-white/70">
-                  <ClockIcon className="h-4 w-4" />
-                  {heroStory.readTime}
+                  <FileIcon className="h-4 w-4" /> {heroStory.readTime}
                 </div>
               </div>
             </div>
@@ -170,7 +177,7 @@ export default function Home() {
                 key={topic.label}
                 className={`flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-wide transition ${
                   topic.active
-                    ? "border-transparent bg-[#c3ff3c] text-black"
+                    ? "border-transparent bg-background-yellow text-black"
                     : "border-white/15 bg-black/30 text-zinc-300 hover:text-white"
                 }`}
               >
@@ -212,14 +219,10 @@ export default function Home() {
                       <p className="text-sm text-white/80">{story.excerpt}</p>
                     </div>
                     <div className="mt-auto flex items-center justify-between text-sm font-medium text-white/80">
-                      <button className="group flex items-center gap-2 text-white transition hover:text-[#c3ff3c]">
+                      <button className="group flex items-center gap-2 text-white transition hover:text-background-yellow">
                         Read
                         <ArrowIcon className="h-4 w-4 transition group-hover:translate-x-1" />
                       </button>
-                      <div className="flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-white/70">
-                        <ClockIcon className="h-4 w-4" />
-                        {story.readTime}
-                      </div>
                     </div>
                   </div>
                 </article>
