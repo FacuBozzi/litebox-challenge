@@ -193,7 +193,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_259px]">
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_270px]">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               {storyCards.map((story) => (
                 <article
@@ -231,11 +231,11 @@ export default function Home() {
 
             <aside className="w-full">
               <h2 className="text-md font-semibold text-white">Most viewed</h2>
-              <div className="mt-6 space-y-5">
+              <div className="mt-4 space-y-3">
                 {mostViewed.map((item) => (
                   <article
                     key={item.title}
-                    className="flex gap-4 border-b border-white/5 pb-5 last:border-b-0 last:pb-0"
+                    className="flex gap-2 border-b border-extra-muted pb-3"
                   >
                     <div className="space-y-2">
                       <p className="text-sm font-semibold leading-snug text-muted">
@@ -243,7 +243,7 @@ export default function Home() {
                       </p>
                     </div>
                     <div
-                      className="h-17 w-17 flex-shrink-0 border border-white/10"
+                      className="h-19 w-19 shrink-0"
                       style={{ background: item.accent }}
                     />
                   </article>
