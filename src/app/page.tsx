@@ -1,4 +1,5 @@
-import Image from "next/image";
+import { ArrowIcon } from "@/components/ArrowIcon";
+import { Navbar } from "@/components/Navbar";
 
 const topics = [
   { label: "All", active: true },
@@ -111,17 +112,6 @@ const mostViewed = [
   },
 ];
 
-const ArrowIcon = ({ className }: { className?: string }) => (
-  <Image
-    src="/arrows/right-yellow-arrow.svg"
-    alt=""
-    width={24}
-    height={10}
-    className={className}
-    priority={false}
-  />
-);
-
 const ClockIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" {...props}>
     <circle cx="10" cy="10" r="7" strokeWidth={1.4} />
@@ -138,21 +128,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#030304] px-4 py-6 pt-0 text-white sm:px-8">
       <div className="mx-auto flex max-w-6xl flex-col gap-10">
-        <header className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-4">
-            <Image
-              src="/lite-tech/lite-tech-logo.svg"
-              width={150}
-              height={100}
-              alt="Lite-Tech logo"
-            />
-          </div>
-          <button className="group flex items-center justify-end gap-3 text-sm font-semibold text-white transition hover:text-[#c3ff3c]">
-            <span className="">New post</span>
-            <ArrowIcon className="h-6 w-6" />
-            {/*<span className="flex h-7 w-7 items-center justify-center rounded-full border border-[#c3ff3c] transition group-hover:translate-x-1 group-hover:border-white"></span>*/}
-          </button>
-        </header>
+        <Navbar />
 
         <section className="space-y-5">
           <p className="text-md font-semibold text-white">Today story</p>
