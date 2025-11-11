@@ -87,27 +87,27 @@ const storyCards: StoryCard[] = [
 
 const mostViewed = [
   {
-    title: "Your TV sounds awful. These soundbars can fix that",
+    title: "Your TV Sounds Awful. These Soundbars Can Fix That",
     meta: "Gear • 9 mins",
     accent:
       "radial-gradient(circle at 20% 20%, rgba(255,196,241,0.5), transparent 60%), linear-gradient(135deg, #e000ff, #7700ff)",
   },
   {
-    title: "The small company at the center of “Gamergate 2.0”",
+    title: "The Small Company at the Center of 'Gamergate 2.0'",
     meta: "Culture • 7 mins",
     accent:
       "radial-gradient(circle at 70% 20%, rgba(255,210,136,0.6), transparent 55%), linear-gradient(135deg, #ff7a18, #ff0057)",
   },
   {
     title:
-      "Craig Wright is not Bitcoin creator Satoshi Nakamoto, judge declares",
+      "Craig Wright Is Not Bitcoin Creator Satoshi Nakamoto, Judge Declares",
     meta: "Courts • 5 mins",
     accent:
       "radial-gradient(circle at 20% 80%, rgba(182,208,255,0.55), transparent 50%), linear-gradient(135deg, #2f68ff, #11152b)",
   },
   {
     title:
-      "Robert F. Kennedy Jr. targets a generation of politically disaffected, extremely online men",
+      "Robert F. Kennedy Jr. Targets a Generation of Politically Disaffected, Extremely Online Men",
     meta: "Politics • 12 mins",
     accent:
       "radial-gradient(circle at 50% 30%, rgba(255,255,255,0.35), transparent 60%), linear-gradient(135deg, #ffef9f, #f0941f)",
@@ -155,7 +155,7 @@ export default function Home() {
                     Read
                     <ArrowIcon className="h-6 w-6" color="purple" />
                   </button>
-                  <div className="flex pr-6 items-center font-normal gap-2 text-sm text-muted">
+                  <div className="flex pr-6 items-center font-normal gap-2 text-sm text-extra-muted">
                     <FileIcon className="h-4 w-4" />
                     {heroStory.readTime}
                   </div>
@@ -229,7 +229,7 @@ export default function Home() {
               ))}
             </div>
 
-            <aside className="w-full rounded-[32px] border border-white/10 bg-gradient-to-b from-white/5 to-transparent p-6 lg:w-[280px] xl:w-[320px]">
+            <aside className="w-full lg:w-[280px] xl:w-[320px]">
               <h2 className="text-xl font-semibold text-white">Most viewed</h2>
               <div className="mt-6 space-y-5">
                 {mostViewed.map((item) => (
@@ -237,18 +237,15 @@ export default function Home() {
                     key={item.title}
                     className="flex gap-4 border-b border-white/5 pb-5 last:border-b-0 last:pb-0"
                   >
-                    <div
-                      className="h-16 w-16 flex-shrink-0 rounded-2xl border border-white/10"
-                      style={{ background: item.accent }}
-                    />
                     <div className="space-y-2">
-                      <p className="text-sm font-semibold leading-snug text-white">
+                      <p className="text-md font-semibold leading-snug text-muted">
                         {item.title}
                       </p>
-                      <p className="text-xs uppercase tracking-[0.3em] text-muted">
-                        {item.meta}
-                      </p>
                     </div>
+                    <div
+                      className="h-20 w-20 flex-shrink-0 border border-white/10"
+                      style={{ background: item.accent }}
+                    />
                   </article>
                 ))}
               </div>
