@@ -136,7 +136,7 @@ const ClockIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#030304] px-4 py-6 text-white sm:px-8">
+    <div className="min-h-screen bg-[#030304] px-4 py-6 pt-0 text-white sm:px-8">
       <div className="mx-auto flex max-w-6xl flex-col gap-10">
         <header className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-4">
@@ -155,9 +155,7 @@ export default function Home() {
         </header>
 
         <section className="space-y-5">
-          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-zinc-500">
-            Today story
-          </p>
+          <p className="text-md font-semibold text-white">Today story</p>
           <article
             className="relative overflow-hidden border border-white/10"
             style={{ background: heroStory.background }}
