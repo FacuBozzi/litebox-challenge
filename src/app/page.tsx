@@ -196,7 +196,7 @@ export default function Home() {
           </div>
 
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_270px]">
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:auto-rows-[minmax(220px,_1fr)] lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+            <div className="grid grid-cols-1 gap-7 md:grid-cols-2 md:auto-rows-[minmax(320px,_1fr)] lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
               {storyCards.map((story) => (
                 <article
                   key={story.id}
@@ -210,7 +210,7 @@ export default function Home() {
                   style={{ background: story.background }}
                 >
                   <div className="absolute inset-0 opacity-40 mix-blend-screen bg-[repeating-linear-gradient(45deg,_rgba(255,255,255,0.05)_0,_rgba(255,255,255,0.05)_2px,_transparent_2px,_transparent_8px)]" />
-                  <div className="relative mx-auto w-full max-w-[460px] pl-6 pr-6 text-black sm:ml-7 sm:pl-0 lg:max-w-[520px]">
+                  <div className="relative mx-auto w-full max-w-[460px] px-6 ml-6 text-black sm:pl-0 lg:max-w-[520px]">
                     <div className="inline-flex h-11 items-end justify-center bg-white px-6">
                       <div className="inline-flex items-center gap-2 rounded-full bg-background-yellow px-3 py-[0.3rem] text-xs font-semibold text-black">
                         {story.category}
