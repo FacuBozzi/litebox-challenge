@@ -236,7 +236,7 @@ export default function Home() {
           </div>
           <div
             className={`flex flex-col gap-2 bg-white px-6 ${
-              isCompact ? "py-3" : "py-4"
+              isCompact ? "py-3" : "py-5"
             }`}
           >
             <div className="space-y-3">
@@ -363,19 +363,22 @@ export default function Home() {
                   return null;
                 }
 
-                const orderedCards =
-                  groupIndex % 2 === 0
-                    ? [featureCard, ...compactCards]
-                    : [
-                        ...(compactCards[0] ? [compactCards[0]] : []),
-                        featureCard,
-                        ...compactCards.slice(compactCards[0] ? 1 : 0),
-                      ];
+                const isFeatureFirst = groupIndex % 2 === 0;
+                const orderedCards = isFeatureFirst
+                  ? [featureCard, ...compactCards]
+                  : [
+                      ...(compactCards[0] ? [compactCards[0]] : []),
+                      featureCard,
+                      ...compactCards.slice(compactCards[0] ? 1 : 0),
+                    ];
+                const gridColsClass = isFeatureFirst
+                  ? "lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1.05fr)]"
+                  : "lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1.45fr)]";
 
                 return (
                   <div
                     key={`story-group-${groupIndex}`}
-                    className="grid grid-cols-1 gap-7 md:grid-cols-2 md:auto-rows-[minmax(340px,_1fr)] lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1.05fr)]"
+                    className={`grid grid-cols-1 gap-7 md:grid-cols-2 md:auto-rows-[minmax(340px,_1fr)] ${gridColsClass}`}
                   >
                     {orderedCards
                       .filter((card): card is StoryCard => Boolean(card))
