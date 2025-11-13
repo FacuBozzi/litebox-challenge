@@ -46,7 +46,7 @@ const storyCards: StoryCard[] = [
     accent: "var(--color-background-yellow)",
     background:
       "radial-gradient(circle at 25% 20%, rgba(255,227,150,0.5), transparent 40%), radial-gradient(circle at 75% 30%, rgba(255,109,109,0.45), transparent 45%), linear-gradient(135deg, rgba(241,208,108,0.9), rgba(255,83,53,0.7))",
-    layout: "md:col-span-2 min-h-[320px]",
+    layout: "md:row-span-2 md:min-h-[420px] lg:min-h-[520px]",
   },
   {
     id: "crypto-crime",
@@ -194,7 +194,7 @@ export default function Home() {
           </div>
 
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_270px]">
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:auto-rows-[minmax(220px,1fr) lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
               {storyCards.map((story) => (
                 <article
                   key={story.id}
