@@ -43,3 +43,11 @@ body {
     background-color: var(--color-background-yellow);
     color: #050505;
 }
+
+.story-title-clamp {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+}

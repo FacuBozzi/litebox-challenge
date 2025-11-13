@@ -210,25 +210,27 @@ export default function Home() {
                   style={{ background: story.background }}
                 >
                   <div className="absolute inset-0 opacity-40 mix-blend-screen bg-[repeating-linear-gradient(45deg,_rgba(255,255,255,0.05)_0,_rgba(255,255,255,0.05)_2px,_transparent_2px,_transparent_8px)]" />
-                  <div className="relative mx-auto w-full max-w-[460px] px-6 text-white sm:ml-7 sm:px-0 lg:max-w-[520px]">
-                    <div className="inline-flex h-12 items-end justify-center bg-black px-6">
+                  <div className="relative mx-auto w-full max-w-[460px] pl-6 pr-6 text-black sm:ml-7 sm:pl-0 lg:max-w-[520px]">
+                    <div className="inline-flex h-11 items-end justify-center bg-white px-6">
                       <div className="inline-flex items-center gap-2 rounded-full bg-background-yellow px-3 py-[0.3rem] text-xs font-semibold text-black">
                         {story.category}
                       </div>
                     </div>
-                    <div className="flex flex-col gap-4 bg-black px-6 py-6">
+                    <div className="flex flex-col gap-2 bg-white px-6 py-4">
                       <div className="space-y-3">
-                        <h3 className="text-2xl font-semibold leading-tight">
+                        <h3 className="story-title-clamp text-lg font-bold leading-normal">
                           {story.title}
                         </h3>
-                        <p className="text-sm text-white/75">{story.excerpt}</p>
                       </div>
-                      <div className="mt-1 flex items-center justify-between text-sm font-medium text-white/80">
-                        <button className="group flex items-center gap-2 text-white transition hover:text-background-yellow">
+                      <div className="mt-1 flex items-center justify-between text-md font-semibold">
+                        <button className="group flex items-center gap-1 transition hover:text-background-yellow">
                           Read
-                          <ArrowIcon className="h-4 w-4 transition group-hover:translate-x-1" />
+                          <ArrowIcon
+                            className="h-6 w-6 transition group-hover:translate-x-1"
+                            color="purple"
+                          />
                         </button>
-                        <div className="flex items-center gap-2 text-white/70">
+                        <div className="flex text-sm font-normal items-center gap-2 text-extra-muted">
                           <FileIcon className="h-4 w-4" />
                           {story.readTime}
                         </div>
