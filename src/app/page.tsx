@@ -359,7 +359,7 @@ export default function Home() {
           </div>
 
           <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,1fr)_270px]">
-            <div className="flex flex-col gap-12">
+            <div className="flex flex-col gap-12 mb-40">
               {storyGroups.map((group, groupIndex) => {
                 if (group.length === 0) return null;
 
@@ -408,6 +408,9 @@ export default function Home() {
                   </Fragment>
                 );
               })}
+              <button className="mx-auto cursor-pointer mt-2 bg-background-yellow inline-flex items-center justify-center px-8 py-4 text-md font-medium text-black transition hover:text-white hover:bg-background-yellow/40">
+                Load more
+              </button>
             </div>
 
             <aside className="w-full">
