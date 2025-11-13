@@ -94,6 +94,76 @@ const storyCards: StoryCard[] = [
     labelHeightClass: "h-12",
     compact: true,
   },
+  {
+    id: "studio-breakfast2",
+    category: "Tech companies",
+    title:
+      "Inside the studios reinventing corporate all-hands as immersive broadcasts",
+    excerpt:
+      "Lite Labs built a game-engine powered stage for founders to launch products straight to their employee base without rehearsals.",
+    readTime: "5 mins",
+    accent: "var(--color-background-yellow)",
+    background:
+      "radial-gradient(circle at 25% 20%, rgba(255,227,150,0.5), transparent 40%), radial-gradient(circle at 75% 30%, rgba(255,109,109,0.45), transparent 45%), linear-gradient(135deg, rgba(241,208,108,0.9), rgba(255,83,53,0.7))",
+    layout: "md:row-span-2 md:min-h-[420px] lg:min-h-[520px]",
+    contentAlignment: "end",
+    labelHeightClass: "h-11",
+  },
+  {
+    id: "crypto-crime2",
+    category: "Crypto",
+    title:
+      "Binance’s top crypto crime investigator is being detained in Nigeria",
+    excerpt:
+      "Nigeria’s EFCC alleges policy violations as the exchange fights a $10B penalty.",
+    readTime: "6 mins",
+    accent: "#a4f6ff",
+    background:
+      "radial-gradient(circle at 20% 20%, rgba(75,255,155,0.4), transparent 40%), linear-gradient(140deg, rgba(9,56,25,0.95), rgba(11,100,71,0.85))",
+    labelHeightClass: "h-12",
+    compact: true,
+  },
+  {
+    id: "signal-room2",
+    category: "Security",
+    title: "The war room where ethical hackers rehearse global ransom drills",
+    excerpt:
+      "Shadow rehearsals every week are helping airports build muscle-memory when the alarms go dark.",
+    readTime: "8 mins",
+    accent: "#bda6ff",
+    background:
+      "radial-gradient(circle at 80% 20%, rgba(93,173,255,0.4), transparent 45%), linear-gradient(145deg, rgba(8,12,33,0.95), rgba(50,68,110,0.9))",
+    labelHeightClass: "h-12",
+    compact: true,
+  },
+  {
+    id: "founder-hangout2",
+    category: "Tech companies",
+    title:
+      "A stealth startup wants founders to treat LinkedIn like late-night TV",
+    excerpt:
+      "Litewave is paying on-air hosts to remix product launches into personality-driven talk shows.",
+    readTime: "4 mins",
+    accent: "var(--color-background-yellow)",
+    background:
+      "radial-gradient(circle at 15% 15%, rgba(195,255,60,0.35), transparent 40%), radial-gradient(circle at 75% 35%, rgba(255,131,208,0.3), transparent 40%), linear-gradient(135deg, rgba(28,28,28,0.95), rgba(18,18,18,0.85))",
+    labelHeightClass: "h-12",
+    compact: true,
+  },
+  {
+    id: "founder-hangout3",
+    category: "Tech companies",
+    title:
+      "A stealth startup wants founders to treat LinkedIn like late-night TV",
+    excerpt:
+      "Litewave is paying on-air hosts to remix product launches into personality-driven talk shows.",
+    readTime: "4 mins",
+    accent: "var(--color-background-yellow)",
+    background:
+      "radial-gradient(circle at 15% 15%, rgba(195,255,60,0.35), transparent 40%), radial-gradient(circle at 75% 35%, rgba(255,131,208,0.3), transparent 40%), linear-gradient(135deg, rgba(28,28,28,0.95), rgba(18,18,18,0.85))",
+    labelHeightClass: "h-12",
+    compact: true,
+  },
 ];
 
 const mostViewed = [
