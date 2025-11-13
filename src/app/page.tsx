@@ -37,126 +37,43 @@ type StoryCard = {
   labelHeightClass?: string;
 };
 
-const storyCards: StoryCard[] = [
-  {
-    id: "studio-breakfast",
-    category: "Tech companies",
-    title:
-      "Inside the studios reinventing corporate all-hands as immersive broadcasts",
-    excerpt:
-      "Lite Labs built a game-engine powered stage for founders to launch products straight to their employee base without rehearsals.",
-    readTime: "5 mins",
-    accent: "var(--color-background-yellow)",
-    background:
-      "radial-gradient(circle at 25% 20%, rgba(255,227,150,0.5), transparent 40%), radial-gradient(circle at 75% 30%, rgba(255,109,109,0.45), transparent 45%), linear-gradient(135deg, rgba(241,208,108,0.9), rgba(255,83,53,0.7))",
-    layout: "md:row-span-2 md:min-h-[420px] lg:min-h-[520px]",
-    contentAlignment: "end",
-    labelHeightClass: "h-11",
-  },
-  {
-    id: "crypto-crime",
-    category: "Crypto",
-    title:
-      "Binance’s top crypto crime investigator is being detained in Nigeria",
-    excerpt:
-      "Nigeria’s EFCC alleges policy violations as the exchange fights a $10B penalty.",
-    readTime: "6 mins",
-    accent: "#a4f6ff",
-    background:
-      "radial-gradient(circle at 20% 20%, rgba(75,255,155,0.4), transparent 40%), linear-gradient(140deg, rgba(9,56,25,0.95), rgba(11,100,71,0.85))",
-    labelHeightClass: "h-12",
-  },
-  {
-    id: "signal-room",
-    category: "Security",
-    title: "The war room where ethical hackers rehearse global ransom drills",
-    excerpt:
-      "Shadow rehearsals every week are helping airports build muscle-memory when the alarms go dark.",
-    readTime: "8 mins",
-    accent: "#bda6ff",
-    background:
-      "radial-gradient(circle at 80% 20%, rgba(93,173,255,0.4), transparent 45%), linear-gradient(145deg, rgba(8,12,33,0.95), rgba(50,68,110,0.9))",
-    labelHeightClass: "h-12",
-  },
-  {
-    id: "founder-hangout",
-    category: "Tech companies",
-    title:
-      "A stealth startup wants founders to treat LinkedIn like late-night TV",
-    excerpt:
-      "Litewave is paying on-air hosts to remix product launches into personality-driven talk shows.",
-    readTime: "4 mins",
-    accent: "var(--color-background-yellow)",
-    background:
-      "radial-gradient(circle at 15% 15%, rgba(195,255,60,0.35), transparent 40%), radial-gradient(circle at 75% 35%, rgba(255,131,208,0.3), transparent 40%), linear-gradient(135deg, rgba(28,28,28,0.95), rgba(18,18,18,0.85))",
-    labelHeightClass: "h-12",
-  },
-  {
-    id: "studio-breakfast2",
-    category: "Tech companies",
-    title:
-      "Inside the studios reinventing corporate all-hands as immersive broadcasts",
-    excerpt:
-      "Lite Labs built a game-engine powered stage for founders to launch products straight to their employee base without rehearsals.",
-    readTime: "5 mins",
-    accent: "var(--color-background-yellow)",
-    background:
-      "radial-gradient(circle at 25% 20%, rgba(255,227,150,0.5), transparent 40%), radial-gradient(circle at 75% 30%, rgba(255,109,109,0.45), transparent 45%), linear-gradient(135deg, rgba(241,208,108,0.9), rgba(255,83,53,0.7))",
-    layout: "md:row-span-2 md:min-h-[420px] lg:min-h-[520px]",
-    contentAlignment: "end",
-    labelHeightClass: "h-11",
-  },
-  {
-    id: "crypto-crime2",
-    category: "Crypto",
-    title:
-      "Binance’s top crypto crime investigator is being detained in Nigeria",
-    excerpt:
-      "Nigeria’s EFCC alleges policy violations as the exchange fights a $10B penalty.",
-    readTime: "6 mins",
-    accent: "#a4f6ff",
-    background:
-      "radial-gradient(circle at 20% 20%, rgba(75,255,155,0.4), transparent 40%), linear-gradient(140deg, rgba(9,56,25,0.95), rgba(11,100,71,0.85))",
-    labelHeightClass: "h-12",
-  },
-  {
-    id: "signal-room2",
-    category: "Security",
-    title: "The war room where ethical hackers rehearse global ransom drills",
-    excerpt:
-      "Shadow rehearsals every week are helping airports build muscle-memory when the alarms go dark.",
-    readTime: "8 mins",
-    accent: "#bda6ff",
-    background:
-      "radial-gradient(circle at 80% 20%, rgba(93,173,255,0.4), transparent 45%), linear-gradient(145deg, rgba(8,12,33,0.95), rgba(50,68,110,0.9))",
-    labelHeightClass: "h-12",
-  },
-  {
-    id: "founder-hangout2",
-    category: "Tech companies",
-    title:
-      "A stealth startup wants founders to treat LinkedIn like late-night TV",
-    excerpt:
-      "Litewave is paying on-air hosts to remix product launches into personality-driven talk shows.",
-    readTime: "4 mins",
-    accent: "var(--color-background-yellow)",
-    background:
-      "radial-gradient(circle at 15% 15%, rgba(195,255,60,0.35), transparent 40%), radial-gradient(circle at 75% 35%, rgba(255,131,208,0.3), transparent 40%), linear-gradient(135deg, rgba(28,28,28,0.95), rgba(18,18,18,0.85))",
-    labelHeightClass: "h-12",
-  },
-  {
-    id: "founder-hangout3",
-    category: "Tech companies",
-    title:
-      "A stealth startup wants founders to treat LinkedIn like late-night TV",
-    excerpt:
-      "Litewave is paying on-air hosts to remix product launches into personality-driven talk shows.",
-    readTime: "4 mins",
-    accent: "var(--color-background-yellow)",
-    background:
-      "radial-gradient(circle at 15% 15%, rgba(195,255,60,0.35), transparent 40%), radial-gradient(circle at 75% 35%, rgba(255,131,208,0.3), transparent 40%), linear-gradient(135deg, rgba(28,28,28,0.95), rgba(18,18,18,0.85))",
-    labelHeightClass: "h-12",
-  },
+type CoverImageAttributes = {
+  data?: {
+    id: number;
+    attributes?: {
+      url: string;
+      name?: string;
+    };
+  } | null;
+};
+
+type PostAttributes = {
+  title?: string;
+  subtitle?: string;
+  topic?: string;
+  author?: string;
+  readTime?: number;
+  body?: string;
+  coverImg?: CoverImageAttributes;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  publishedAt?: string | null;
+};
+
+type PostEntity = {
+  id: number;
+  attributes: PostAttributes;
+};
+
+type PostsResponse = {
+  data: PostEntity[];
+};
+
+const fallbackBackgrounds = [
+  "radial-gradient(circle at 25% 20%, rgba(255,227,150,0.5), transparent 40%), radial-gradient(circle at 75% 30%, rgba(255,109,109,0.45), transparent 45%), linear-gradient(135deg, rgba(241,208,108,0.9), rgba(255,83,53,0.7))",
+  "radial-gradient(circle at 20% 20%, rgba(75,255,155,0.4), transparent 40%), linear-gradient(140deg, rgba(9,56,25,0.95), rgba(11,100,71,0.85))",
+  "radial-gradient(circle at 80% 20%, rgba(93,173,255,0.4), transparent 45%), linear-gradient(145deg, rgba(8,12,33,0.95), rgba(50,68,110,0.9))",
+  "radial-gradient(circle at 15% 15%, rgba(195,255,60,0.35), transparent 40%), radial-gradient(circle at 75% 35%, rgba(255,131,208,0.3), transparent 40%), linear-gradient(135deg, rgba(28,28,28,0.95), rgba(18,18,18,0.85))",
 ];
 
 const mostViewed = [
@@ -198,7 +115,63 @@ const FileIcon = ({ className = "w-5 h-5" }: { className?: string } = {}) => (
   />
 );
 
-export default function Home() {
+export default async function Home() {
+  const apiBaseUrl = process.env.LITE_TECH_API_BASE_URL;
+  const apiHost = process.env.LITE_TECH_API_HOST;
+  if (!apiBaseUrl) {
+    throw new Error(
+      "LITE_TECH_API_BASE_URL is not defined. Please set it in your environment.",
+    );
+  }
+  if (!apiHost) {
+    throw new Error(
+      "LITE_TECH_API_HOST is not defined. Please set it in your environment.",
+    );
+  }
+
+  const normalizedBaseUrl = apiBaseUrl.replace(/\/$/, "");
+  const normalizedHost = apiHost.replace(/\/$/, "");
+
+  let postsData: PostEntity[] = [];
+
+  try {
+    const response = await fetch(`${normalizedHost}/api/posts?limit=14`, {
+      cache: "no-store",
+    });
+    if (!response.ok) {
+      throw new Error(`Request failed with status ${response.status}`);
+    }
+    const posts: PostsResponse = await response.json();
+    console.log("Fetched posts:", posts);
+    postsData = posts.data ?? [];
+  } catch (error) {
+    console.error("Failed to fetch posts", error);
+  }
+
+  const storyCards: StoryCard[] = postsData.map((post, index) => {
+    const attrs = post.attributes ?? {};
+    const coverUrl = attrs.coverImg?.data?.attributes?.url;
+    const background = coverUrl
+      ? `url(${normalizedBaseUrl}${coverUrl}) center center / cover no-repeat`
+      : fallbackBackgrounds[index % fallbackBackgrounds.length];
+    const isFeature = index % 3 === 0;
+
+    return {
+      id: String(post.id),
+      category: attrs.topic ?? "General",
+      title: attrs.title ?? "Untitled Post",
+      excerpt: attrs.subtitle ?? "",
+      readTime: attrs.readTime ? `${attrs.readTime} mins` : "—",
+      accent: "var(--color-background-yellow)",
+      background,
+      layout: isFeature
+        ? "md:row-span-2 md:min-h-[420px] lg:min-h-[520px]"
+        : undefined,
+      contentAlignment: isFeature ? "end" : undefined,
+      labelHeightClass: isFeature ? "h-11" : "h-12",
+    };
+  });
+
   const storyGroups: StoryCard[][] = [];
   for (let i = 0; i < storyCards.length; i += 3) {
     storyGroups.push(storyCards.slice(i, i + 3));
