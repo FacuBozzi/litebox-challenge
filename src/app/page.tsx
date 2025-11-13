@@ -140,7 +140,7 @@ export default function Home() {
 
             <div className="relative ml-7">
               {/* Black clipped hero card */}
-              <div className="w-48 pl-6 h-12 bg-black flex items-end">
+              <div className="inline-flex h-12 items-center justify-center bg-black px-6">
                 <div className="inline-flex items-center gap-2 rounded-full bg-background-yellow px-3 py-[0.3rem] text-xs font-semibold text-black">
                   {heroStory.category}
                 </div>
