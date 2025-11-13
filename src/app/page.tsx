@@ -34,7 +34,6 @@ type StoryCard = {
   layout?: string;
   contentAlignment?: "start" | "center" | "end";
   labelHeightClass?: string;
-  compact?: boolean;
 };
 
 const storyCards: StoryCard[] = [
@@ -65,7 +64,6 @@ const storyCards: StoryCard[] = [
     background:
       "radial-gradient(circle at 20% 20%, rgba(75,255,155,0.4), transparent 40%), linear-gradient(140deg, rgba(9,56,25,0.95), rgba(11,100,71,0.85))",
     labelHeightClass: "h-12",
-    compact: true,
   },
   {
     id: "signal-room",
@@ -78,7 +76,6 @@ const storyCards: StoryCard[] = [
     background:
       "radial-gradient(circle at 80% 20%, rgba(93,173,255,0.4), transparent 45%), linear-gradient(145deg, rgba(8,12,33,0.95), rgba(50,68,110,0.9))",
     labelHeightClass: "h-12",
-    compact: true,
   },
   {
     id: "founder-hangout",
@@ -92,7 +89,6 @@ const storyCards: StoryCard[] = [
     background:
       "radial-gradient(circle at 15% 15%, rgba(195,255,60,0.35), transparent 40%), radial-gradient(circle at 75% 35%, rgba(255,131,208,0.3), transparent 40%), linear-gradient(135deg, rgba(28,28,28,0.95), rgba(18,18,18,0.85))",
     labelHeightClass: "h-12",
-    compact: true,
   },
   {
     id: "studio-breakfast2",
@@ -121,7 +117,6 @@ const storyCards: StoryCard[] = [
     background:
       "radial-gradient(circle at 20% 20%, rgba(75,255,155,0.4), transparent 40%), linear-gradient(140deg, rgba(9,56,25,0.95), rgba(11,100,71,0.85))",
     labelHeightClass: "h-12",
-    compact: true,
   },
   {
     id: "signal-room2",
@@ -134,7 +129,6 @@ const storyCards: StoryCard[] = [
     background:
       "radial-gradient(circle at 80% 20%, rgba(93,173,255,0.4), transparent 45%), linear-gradient(145deg, rgba(8,12,33,0.95), rgba(50,68,110,0.9))",
     labelHeightClass: "h-12",
-    compact: true,
   },
   {
     id: "founder-hangout2",
@@ -148,7 +142,6 @@ const storyCards: StoryCard[] = [
     background:
       "radial-gradient(circle at 15% 15%, rgba(195,255,60,0.35), transparent 40%), radial-gradient(circle at 75% 35%, rgba(255,131,208,0.3), transparent 40%), linear-gradient(135deg, rgba(28,28,28,0.95), rgba(18,18,18,0.85))",
     labelHeightClass: "h-12",
-    compact: true,
   },
   {
     id: "founder-hangout3",
@@ -162,7 +155,6 @@ const storyCards: StoryCard[] = [
     background:
       "radial-gradient(circle at 15% 15%, rgba(195,255,60,0.35), transparent 40%), radial-gradient(circle at 75% 35%, rgba(255,131,208,0.3), transparent 40%), linear-gradient(135deg, rgba(28,28,28,0.95), rgba(18,18,18,0.85))",
     labelHeightClass: "h-12",
-    compact: true,
   },
 ];
 
@@ -206,6 +198,85 @@ const FileIcon = ({ className = "w-5 h-5" }: { className?: string } = {}) => (
 );
 
 export default function Home() {
+  const storyGroups: StoryCard[][] = [];
+  for (let i = 0; i < storyCards.length; i += 3) {
+    storyGroups.push(storyCards.slice(i, i + 3));
+  }
+
+  const renderStoryCard = (
+    story: StoryCard,
+    variant: "feature" | "compact",
+  ) => {
+    const isCompact = variant === "compact";
+    const alignmentClass =
+      story.contentAlignment === "start"
+        ? "items-start"
+        : story.contentAlignment === "center"
+          ? "items-center"
+          : "items-end pb-6";
+
+    const spanClass = !isCompact && !story.layout ? "md:row-span-2" : "";
+
+    return (
+      <article
+        key={story.id}
+        className={`relative flex h-full overflow-hidden border border-white/10 pl-6 ${alignmentClass} ${story.layout ?? ""} ${spanClass}`}
+        style={{ background: story.background }}
+      >
+        <div className="absolute inset-0 opacity-40 mix-blend-screen bg-[repeating-linear-gradient(45deg,_rgba(255,255,255,0.05)_0,_rgba(255,255,255,0.05)_2px,_transparent_2px,_transparent_8px)]" />
+        <div className="relative mx-auto w-full max-w-[460px] pl-6 pr-6 text-black sm:pl-0 lg:max-w-[520px]">
+          <div
+            className={`inline-flex ${
+              story.labelHeightClass ?? "h-12"
+            } items-end justify-center bg-white px-6`}
+          >
+            <div className="inline-flex items-center gap-2 rounded-full bg-background-yellow px-3 py-[0.3rem] text-xs font-semibold text-black">
+              {story.category}
+            </div>
+          </div>
+          <div
+            className={`flex flex-col gap-2 bg-white px-6 ${
+              isCompact ? "py-3" : "py-4"
+            }`}
+          >
+            <div className="space-y-3">
+              <h3
+                className={`story-title-clamp ${
+                  isCompact
+                    ? "text-base font-bold leading-normal"
+                    : "text-lg font-semibold leading-tight"
+                }`}
+              >
+                {story.title}
+              </h3>
+            </div>
+            <div
+              className={`mt-1 flex items-center justify-between ${
+                isCompact ? "text-sm font-semibold" : "text-md font-semibold"
+              }`}
+            >
+              <button
+                className={`group flex items-center gap-1 transition hover:text-background-yellow ${
+                  isCompact ? "text-sm" : "text-base"
+                }`}
+              >
+                Read
+                <ArrowIcon
+                  className="h-6 w-6 transition group-hover:translate-x-1"
+                  color="purple"
+                />
+              </button>
+              <div className="flex text-sm font-normal items-center gap-2 text-extra-muted">
+                <FileIcon className="h-4 w-4" />
+                {story.readTime}
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-[#030304] px-4 py-6 pt-0 text-white sm:px-8">
       <div className="mx-auto flex max-w-6xl flex-col gap-10">
@@ -275,73 +346,48 @@ export default function Home() {
           </div>
 
           <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,1fr)_270px]">
-            <div className="grid grid-cols-1 gap-7 md:grid-cols-2 md:auto-rows-[minmax(340px,_1fr)] lg:grid-cols-[minmax(0,1.20fr)_minmax(0,1.05fr)]">
-              {storyCards.map((story) => (
-                <article
-                  key={story.id}
-                  className={`relative flex h-full overflow-hidden border border-white/10 pl-6 ${
-                    story.contentAlignment === "start"
-                      ? "items-start"
-                      : story.contentAlignment === "center"
-                        ? "items-center"
-                        : "items-end pb-6"
-                  } ${story.layout ?? ""}`}
-                  style={{ background: story.background }}
-                >
-                  <div className="absolute inset-0 opacity-40 mix-blend-screen bg-[repeating-linear-gradient(45deg,_rgba(255,255,255,0.05)_0,_rgba(255,255,255,0.05)_2px,_transparent_2px,_transparent_8px)]" />
-                  <div className="relative mx-auto w-full max-w-[460px] pl-6 pr-6 text-black sm:pl-0 lg:max-w-[520px]">
-                    <div
-                      className={`inline-flex ${
-                        story.labelHeightClass ?? "h-12"
-                      } items-end justify-center bg-white px-6`}
-                    >
-                      <div className="inline-flex items-center gap-2 rounded-full bg-background-yellow px-3 py-[0.3rem] text-xs font-semibold text-black">
-                        {story.category}
-                      </div>
-                    </div>
-                    <div
-                      className={`flex flex-col gap-2 bg-white px-6 ${
-                        story.compact ? "py-2" : "py-4"
-                      }`}
-                    >
-                      <div className="space-y-3">
-                        <h3
-                          className={`story-title-clamp ${
-                            story.compact
-                              ? "text-base font-bold leading-normal"
-                              : "text-lg font-semibold leading-tight"
-                          }`}
-                        >
-                          {story.title}
-                        </h3>
-                      </div>
-                      <div
-                        className={`mt-1 flex items-center justify-between ${
-                          story.compact
-                            ? "text-sm font-semibold"
-                            : "text-md font-semibold"
-                        }`}
-                      >
-                        <button
-                          className={`group flex items-center gap-1 transition hover:text-background-yellow ${
-                            story.compact ? "text-sm" : "text-base"
-                          }`}
-                        >
-                          Read
-                          <ArrowIcon
-                            className="h-6 w-6 transition group-hover:translate-x-1"
-                            color="purple"
-                          />
-                        </button>
-                        <div className="flex text-sm font-normal items-center gap-2 text-extra-muted">
-                          <FileIcon className="h-4 w-4" />
-                          {story.readTime}
-                        </div>
-                      </div>
-                    </div>
+            <div className="flex flex-col gap-8">
+              {storyGroups.map((group, groupIndex) => {
+                if (group.length === 0) return null;
+
+                const featureIndex = group.findIndex((story) =>
+                  story.layout?.includes("row-span-2"),
+                );
+                const resolvedFeatureIndex =
+                  featureIndex === -1 ? 0 : featureIndex;
+                const featureCard = group[resolvedFeatureIndex];
+                const compactCards = group.filter(
+                  (_story, idx) => idx !== resolvedFeatureIndex,
+                );
+                if (!featureCard) {
+                  return null;
+                }
+
+                const orderedCards =
+                  groupIndex % 2 === 0
+                    ? [featureCard, ...compactCards]
+                    : [
+                        ...(compactCards[0] ? [compactCards[0]] : []),
+                        featureCard,
+                        ...compactCards.slice(compactCards[0] ? 1 : 0),
+                      ];
+
+                return (
+                  <div
+                    key={`story-group-${groupIndex}`}
+                    className="grid grid-cols-1 gap-7 md:grid-cols-2 md:auto-rows-[minmax(340px,_1fr)] lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1.05fr)]"
+                  >
+                    {orderedCards
+                      .filter((card): card is StoryCard => Boolean(card))
+                      .map((story) =>
+                        renderStoryCard(
+                          story,
+                          story.id === featureCard?.id ? "feature" : "compact",
+                        ),
+                      )}
                   </div>
-                </article>
-              ))}
+                );
+              })}
             </div>
 
             <aside className="w-full">
