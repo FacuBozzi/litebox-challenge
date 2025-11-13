@@ -33,6 +33,8 @@ type StoryCard = {
   background: string;
   layout?: string;
   contentAlignment?: "start" | "center" | "end";
+  labelHeightClass?: string;
+  compact?: boolean;
 };
 
 const storyCards: StoryCard[] = [
@@ -49,6 +51,7 @@ const storyCards: StoryCard[] = [
       "radial-gradient(circle at 25% 20%, rgba(255,227,150,0.5), transparent 40%), radial-gradient(circle at 75% 30%, rgba(255,109,109,0.45), transparent 45%), linear-gradient(135deg, rgba(241,208,108,0.9), rgba(255,83,53,0.7))",
     layout: "md:row-span-2 md:min-h-[420px] lg:min-h-[520px]",
     contentAlignment: "end",
+    labelHeightClass: "h-11",
   },
   {
     id: "crypto-crime",
@@ -61,6 +64,8 @@ const storyCards: StoryCard[] = [
     accent: "#a4f6ff",
     background:
       "radial-gradient(circle at 20% 20%, rgba(75,255,155,0.4), transparent 40%), linear-gradient(140deg, rgba(9,56,25,0.95), rgba(11,100,71,0.85))",
+    labelHeightClass: "h-12",
+    compact: true,
   },
   {
     id: "signal-room",
@@ -72,6 +77,8 @@ const storyCards: StoryCard[] = [
     accent: "#bda6ff",
     background:
       "radial-gradient(circle at 80% 20%, rgba(93,173,255,0.4), transparent 45%), linear-gradient(145deg, rgba(8,12,33,0.95), rgba(50,68,110,0.9))",
+    labelHeightClass: "h-12",
+    compact: true,
   },
   {
     id: "founder-hangout",
@@ -84,6 +91,8 @@ const storyCards: StoryCard[] = [
     accent: "var(--color-background-yellow)",
     background:
       "radial-gradient(circle at 15% 15%, rgba(195,255,60,0.35), transparent 40%), radial-gradient(circle at 75% 35%, rgba(255,131,208,0.3), transparent 40%), linear-gradient(135deg, rgba(28,28,28,0.95), rgba(18,18,18,0.85))",
+    labelHeightClass: "h-12",
+    compact: true,
   },
 ];
 
@@ -201,29 +210,53 @@ export default function Home() {
                 <article
                   key={story.id}
                   className={`relative flex h-full overflow-hidden border border-white/10 pl-6 ${
-                    story.contentAlignment === "end"
-                      ? "items-end pb-6"
-                      : story.contentAlignment === "start"
-                        ? "items-start"
-                        : "items-center"
+                    story.contentAlignment === "start"
+                      ? "items-start"
+                      : story.contentAlignment === "center"
+                        ? "items-center"
+                        : "items-end pb-6"
                   } ${story.layout ?? ""}`}
                   style={{ background: story.background }}
                 >
                   <div className="absolute inset-0 opacity-40 mix-blend-screen bg-[repeating-linear-gradient(45deg,_rgba(255,255,255,0.05)_0,_rgba(255,255,255,0.05)_2px,_transparent_2px,_transparent_8px)]" />
                   <div className="relative mx-auto w-full max-w-[460px] pl-6 pr-6 text-black sm:pl-0 lg:max-w-[520px]">
-                    <div className="inline-flex h-11 items-end justify-center bg-white px-6">
+                    <div
+                      className={`inline-flex ${
+                        story.labelHeightClass ?? "h-12"
+                      } items-end justify-center bg-white px-6`}
+                    >
                       <div className="inline-flex items-center gap-2 rounded-full bg-background-yellow px-3 py-[0.3rem] text-xs font-semibold text-black">
                         {story.category}
                       </div>
                     </div>
-                    <div className="flex flex-col gap-2 bg-white px-6 py-4">
+                    <div
+                      className={`flex flex-col gap-2 bg-white px-6 ${
+                        story.compact ? "py-2" : "py-4"
+                      }`}
+                    >
                       <div className="space-y-3">
-                        <h3 className="story-title-clamp text-lg font-bold leading-normal">
+                        <h3
+                          className={`story-title-clamp ${
+                            story.compact
+                              ? "text-base font-bold leading-normal"
+                              : "text-lg font-semibold leading-tight"
+                          }`}
+                        >
                           {story.title}
                         </h3>
                       </div>
-                      <div className="mt-1 flex items-center justify-between text-md font-semibold">
-                        <button className="group flex items-center gap-1 transition hover:text-background-yellow">
+                      <div
+                        className={`mt-1 flex items-center justify-between ${
+                          story.compact
+                            ? "text-sm font-semibold"
+                            : "text-md font-semibold"
+                        }`}
+                      >
+                        <button
+                          className={`group flex items-center gap-1 transition hover:text-background-yellow ${
+                            story.compact ? "text-sm" : "text-base"
+                          }`}
+                        >
                           Read
                           <ArrowIcon
                             className="h-6 w-6 transition group-hover:translate-x-1"
