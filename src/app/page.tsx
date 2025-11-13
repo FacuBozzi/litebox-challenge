@@ -194,35 +194,43 @@ export default function Home() {
           </div>
 
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_270px]">
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:auto-rows-[minmax(220px,1fr) lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:auto-rows-[minmax(220px,_1fr)] lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
               {storyCards.map((story) => (
                 <article
                   key={story.id}
-                  className={`relative overflow-hidden rounded-4xl border border-white/10 ${story.layout ?? ""}`}
+                  className={`relative flex h-full items-center overflow-hidden border border-white/10 ${story.layout ?? ""}`}
                   style={{ background: story.background }}
                 >
                   <div className="absolute inset-0 opacity-40 mix-blend-screen bg-[repeating-linear-gradient(45deg,_rgba(255,255,255,0.05)_0,_rgba(255,255,255,0.05)_2px,_transparent_2px,_transparent_8px)]" />
-                  <div className="relative flex h-full flex-col gap-6 p-6">
-                    <div
-                      className="inline-flex w-fit items-center rounded-full px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em]"
-                      style={{
-                        color: "#050505",
-                        backgroundColor: story.accent,
-                      }}
-                    >
-                      {story.category}
+                  <div className="relative mx-auto w-full max-w-[460px] px-6 text-white sm:ml-7 sm:px-0 lg:max-w-[520px]">
+                    <div className="inline-flex h-12 items-center justify-center bg-black px-6">
+                      <div
+                        className="inline-flex w-fit items-center rounded-full px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em]"
+                        style={{
+                          color: "#050505",
+                          backgroundColor: story.accent,
+                        }}
+                      >
+                        {story.category}
+                      </div>
                     </div>
-                    <div className="space-y-3">
-                      <h3 className="text-2xl font-semibold leading-tight text-white">
-                        {story.title}
-                      </h3>
-                      <p className="text-sm text-white/80">{story.excerpt}</p>
-                    </div>
-                    <div className="mt-auto flex items-center justify-between text-sm font-medium text-white/80">
-                      <button className="group flex items-center gap-2 text-white transition hover:text-background-yellow">
-                        Read
-                        <ArrowIcon className="h-4 w-4 transition group-hover:translate-x-1" />
-                      </button>
+                    <div className="mt-3 flex flex-col gap-4 bg-black px-6 py-6">
+                      <div className="space-y-3">
+                        <h3 className="text-2xl font-semibold leading-tight">
+                          {story.title}
+                        </h3>
+                        <p className="text-sm text-white/75">{story.excerpt}</p>
+                      </div>
+                      <div className="mt-1 flex items-center justify-between text-sm font-medium text-white/80">
+                        <button className="group flex items-center gap-2 text-white transition hover:text-background-yellow">
+                          Read
+                          <ArrowIcon className="h-4 w-4 transition group-hover:translate-x-1" />
+                        </button>
+                        <div className="flex items-center gap-2 text-white/70">
+                          <FileIcon className="h-4 w-4" />
+                          {story.readTime}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </article>
