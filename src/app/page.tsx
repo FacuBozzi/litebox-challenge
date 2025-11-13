@@ -359,7 +359,7 @@ export default function Home() {
           </div>
 
           <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,1fr)_270px]">
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-12">
               {storyGroups.map((group, groupIndex) => {
                 if (group.length === 0) return null;
 
