@@ -1,6 +1,7 @@
 import { ArrowIcon } from "@/components/ArrowIcon";
 import { Navbar } from "@/components/Navbar";
 import Image from "next/image";
+import { Fragment } from "react";
 
 const topics = [
   { label: "All", active: true },
@@ -203,6 +204,18 @@ export default function Home() {
     storyGroups.push(storyCards.slice(i, i + 3));
   }
 
+  const NewsletterBanner = () => (
+    <div className="border border-white/10 bg-purple px-4 py-8 text-white sm:flex sm:items-center sm:justify-between sm:gap-6 md:px-10 md:py-9">
+      <p className="text-lg font-normal leading-relaxed sm:max-w-3xl sm:text-[1.45rem]">
+        Sign up for our newsletter{" "}
+        <span className="font-semibold">and get daily updates</span>
+      </p>
+      <button className="mt-6 inline-flex items-center justify-center bg-background-yellow px-7.5 py-3 text-sm font-medium text-black transition hover:bg-background-yellow/80 sm:mt-0">
+        Subscribe
+      </button>
+    </div>
+  );
+
   const renderStoryCard = (
     story: StoryCard,
     variant: "feature" | "compact",
@@ -376,19 +389,23 @@ export default function Home() {
                   : "lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1.45fr)]";
 
                 return (
-                  <div
-                    key={`story-group-${groupIndex}`}
-                    className={`grid grid-cols-1 gap-7 md:grid-cols-2 md:auto-rows-[minmax(340px,_1fr)] ${gridColsClass}`}
-                  >
-                    {orderedCards
-                      .filter((card): card is StoryCard => Boolean(card))
-                      .map((story) =>
-                        renderStoryCard(
-                          story,
-                          story.id === featureCard?.id ? "feature" : "compact",
-                        ),
-                      )}
-                  </div>
+                  <Fragment key={`story-group-${groupIndex}`}>
+                    <div
+                      className={`grid grid-cols-1 gap-7 md:grid-cols-2 md:auto-rows-[minmax(340px,_1fr)] ${gridColsClass}`}
+                    >
+                      {orderedCards
+                        .filter((card): card is StoryCard => Boolean(card))
+                        .map((story) =>
+                          renderStoryCard(
+                            story,
+                            story.id === featureCard?.id
+                              ? "feature"
+                              : "compact",
+                          ),
+                        )}
+                    </div>
+                    {groupIndex === 0 && <NewsletterBanner />}
+                  </Fragment>
                 );
               })}
             </div>

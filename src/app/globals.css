@@ -10,6 +10,7 @@
     --color-foreground: var(--foreground);
     --color-muted: #8c8c8c;
     --color-extra-muted: #595959;
+    --color-purple: #9c73f7;
 
     /* ✅ Custom Tailwind theme color */
     --color-background-yellow: #d8f34e;
@@ -50,4 +51,8 @@ body {
     -webkit-line-clamp: 2;
     line-clamp: 2;
     overflow: hidden;
+}
+
+.bg-purple {
+    background-color: var(--color-purple);
 }
