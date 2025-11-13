@@ -32,6 +32,7 @@ type StoryCard = {
   accent: string;
   background: string;
   layout?: string;
+  contentAlignment?: "start" | "center" | "end";
 };
 
 const storyCards: StoryCard[] = [
@@ -47,6 +48,7 @@ const storyCards: StoryCard[] = [
     background:
       "radial-gradient(circle at 25% 20%, rgba(255,227,150,0.5), transparent 40%), radial-gradient(circle at 75% 30%, rgba(255,109,109,0.45), transparent 45%), linear-gradient(135deg, rgba(241,208,108,0.9), rgba(255,83,53,0.7))",
     layout: "md:row-span-2 md:min-h-[420px] lg:min-h-[520px]",
+    contentAlignment: "end",
   },
   {
     id: "crypto-crime",
@@ -198,23 +200,23 @@ export default function Home() {
               {storyCards.map((story) => (
                 <article
                   key={story.id}
-                  className={`relative flex h-full items-center overflow-hidden border border-white/10 ${story.layout ?? ""}`}
+                  className={`relative flex h-full overflow-hidden border border-white/10 ${
+                    story.contentAlignment === "end"
+                      ? "items-end pb-6"
+                      : story.contentAlignment === "start"
+                        ? "items-start"
+                        : "items-center"
+                  } ${story.layout ?? ""}`}
                   style={{ background: story.background }}
                 >
                   <div className="absolute inset-0 opacity-40 mix-blend-screen bg-[repeating-linear-gradient(45deg,_rgba(255,255,255,0.05)_0,_rgba(255,255,255,0.05)_2px,_transparent_2px,_transparent_8px)]" />
                   <div className="relative mx-auto w-full max-w-[460px] px-6 text-white sm:ml-7 sm:px-0 lg:max-w-[520px]">
-                    <div className="inline-flex h-12 items-center justify-center bg-black px-6">
-                      <div
-                        className="inline-flex w-fit items-center rounded-full px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em]"
-                        style={{
-                          color: "#050505",
-                          backgroundColor: story.accent,
-                        }}
-                      >
+                    <div className="inline-flex h-12 items-end justify-center bg-black px-6">
+                      <div className="inline-flex items-center gap-2 rounded-full bg-background-yellow px-3 py-[0.3rem] text-xs font-semibold text-black">
                         {story.category}
                       </div>
                     </div>
-                    <div className="mt-3 flex flex-col gap-4 bg-black px-6 py-6">
+                    <div className="flex flex-col gap-4 bg-black px-6 py-6">
                       <div className="space-y-3">
                         <h3 className="text-2xl font-semibold leading-tight">
                           {story.title}
