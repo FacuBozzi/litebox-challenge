@@ -13,6 +13,8 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
   const [flowState, setFlowState] = useState<FlowState>("selecting");
   const [title, setTitle] = useState("");
   const [selectedFileName, setSelectedFileName] = useState("");
+  const [titleError, setTitleError] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -42,7 +44,19 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
     flowState === "completed" ? "px-12 py-20 pb-10" : "px-12 py-14";
 
   const handleRetry = () => setFlowState("success");
+
+  const validateFields = () => {
+    const hasTitle = title.trim().length > 0;
+    const hasImage = Boolean(selectedFileName);
+    setTitleError(!hasTitle);
+    setImageError(!hasImage);
+    return hasTitle && hasImage;
+  };
+
   const handleConfirm = () => {
+    if (!validateFields()) {
+      return;
+    }
     if (flowState === "success") {
       setFlowState("completed");
     }
@@ -56,6 +70,7 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
     const file = event.target.files?.[0];
     if (!file) return;
     setSelectedFileName(file.name);
+    setImageError(false);
     setFlowState("uploading");
   };
 
@@ -65,33 +80,33 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
     if (flowState === "selecting") {
       return (
         <>
-          <div className="flex flex-row items-center text-center">
-            <button
-              type="button"
-              onClick={handleBrowseClick}
-              className="flex w-full max-w-[330px] gap-2 items-center justify-center border-2 border-black bg-transparent px-4 py-3 text-base font-semibold text-[#1c1735] transition hover:bg-white/40"
-            >
-              <span>Upload image</span>
-              <Image
-                src="/arrows/arrow-up.svg"
-                width={22}
-                height={22}
-                alt="arrow up"
-              />
-            </button>
-            {selectedFileName && (
-              <p className="mt-2 text-xs font-semibold text-[#1c1735]">
-                {selectedFileName}
-              </p>
-            )}
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={handleFileChange}
+          <button
+            type="button"
+            onClick={handleBrowseClick}
+            className={`flex w-full max-w-[330px] items-center justify-center gap-2 border-2 ${
+              imageError ? "border-[#FF2F2F]" : "border-black"
+            } bg-transparent px-4 py-3 text-base font-semibold text-[#1c1735] transition hover:bg-white/40`}
+          >
+            <span>Upload image</span>
+            <Image
+              src="/arrows/arrow-up.svg"
+              width={22}
+              height={22}
+              alt="arrow up"
             />
-          </div>
+          </button>
+          {selectedFileName && (
+            <p className="mt-2 text-xs font-semibold text-[#1c1735]">
+              {selectedFileName}
+            </p>
+          )}
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={handleFileChange}
+          />
         </>
       );
     }
@@ -193,9 +208,16 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
                 <input
                   type="text"
                   value={title}
-                  onChange={(event) => setTitle(event.target.value)}
+                  onChange={(event) => {
+                    setTitle(event.target.value);
+                    if (titleError) {
+                      setTitleError(false);
+                    }
+                  }}
                   placeholder="Post Title"
-                  className="w-full border-2 border-black bg-white px-4 py-3 text-base font-medium text-[#1c1735] outline-none focus:ring-1 focus:ring-black"
+                  className={`w-full border-2 ${
+                    titleError ? "border-[#FF2F2F]" : "border-black"
+                  } bg-white px-4 py-3 text-base font-medium text-[#1c1735] outline-none focus:ring-1 focus:ring-black`}
                 />
               </div>
 
