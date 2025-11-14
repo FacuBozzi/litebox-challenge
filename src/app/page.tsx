@@ -544,7 +544,7 @@ export default async function Home() {
                   </Fragment>
                 );
               })}
-              <button className="mx-auto cursor-pointer mt-2 bg-background-yellow inline-flex items-center justify-center px-8 py-4 text-md font-medium text-black transition hover:text-white hover:bg-background-yellow/40">
+              <button className="mx-auto cursor-pointer mt-2 bg-background-yellow inline-flex items-center justify-center px-7 py-[0.8rem] text-md font-medium text-black transition hover:text-white hover:bg-background-yellow/40">
                 Load more
               </button>
             </div>
