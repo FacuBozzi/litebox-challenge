@@ -264,7 +264,7 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
       <>
         <div className={`flex items-center gap-2 ${textClass}`}>
           <span>Upload successful</span>
-          <Image src="misc/check.svg" width={24} height={24} alt="check" />
+          <Image src="/misc/check.svg" width={24} height={24} alt="check" />
         </div>
         <div className="mt-1 h-2.5 w-full bg-black" />
       </>
@@ -292,7 +292,7 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
             onClick={handleCancel}
           >
             <Image
-              src="misc/close-icon.svg"
+              src="/misc/close-icon.svg"
               width={40}
               height={40}
               onClick={handleCancel}
