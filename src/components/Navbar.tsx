@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowIcon } from "@/components/ArrowIcon";
 import { PostCreationModal } from "@/components/PostCreationModal";
+import Link from "next/link";
 
 export function Navbar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -46,12 +47,14 @@ export function Navbar() {
       >
         <header className="mx-auto flex w-full max-w-6xl flex-col px-4 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-8">
           <div className="flex items-center gap-4">
-            <Image
-              src="/lite-tech/lite-tech-logo.svg"
-              width={150}
-              height={100}
-              alt="Lite-Tech logo"
-            />
+            <Link href="/">
+              <Image
+                src="/lite-tech/lite-tech-logo.svg"
+                width={150}
+                height={100}
+                alt="Lite-Tech logo"
+              />
+            </Link>
           </div>
           <button
             type="button"
