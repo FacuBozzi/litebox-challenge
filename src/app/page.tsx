@@ -101,8 +101,8 @@ export default async function Home() {
           const coverUrl = attrs.coverImg?.data?.attributes?.url;
           const background = coverUrl
             ? `url(${normalizedBaseUrl}${coverUrl}) center center / cover no-repeat`
-            : fallbackStoryCards[index % fallbackStoryCards.length]?.background ??
-              fallbackHeroStory.background;
+            : (fallbackStoryCards[index % fallbackStoryCards.length]
+                ?.background ?? fallbackHeroStory.background);
           const isFeature = index % 3 === 0;
 
           return {
@@ -230,13 +230,10 @@ export default async function Home() {
               </div>
             </div>
 
-            <div className="flex w-123 flex-col bg-black px-0 py-6 pl-6">
+            <div className="flex w-123 flex-col bg-black px-6 py-6">
               <h1 className="text-3xl font-semibold leading-tight md:text-4xl">
                 {heroStory.title}
               </h1>
-              <p className="mt-3 text-sm text-extra-muted">
-                {heroStory.summary}
-              </p>
               <div className="mt-3 flex justify-between">
                 <ReadAction
                   slug={heroSlug}
@@ -319,7 +316,9 @@ export default async function Home() {
                     className={`grid grid-cols-1 gap-7 md:auto-rows-[minmax(340px,_1fr)] md:grid-cols-2 ${gridColsClass}`}
                   >
                     {orderedCards
-                      .filter((card): card is StoryCardWithSlug => Boolean(card))
+                      .filter((card): card is StoryCardWithSlug =>
+                        Boolean(card),
+                      )
                       .map((story) =>
                         renderStoryCard(
                           story,

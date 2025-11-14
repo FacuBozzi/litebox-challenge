@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ReactMarkdown, { type Components } from "react-markdown";
@@ -63,6 +64,16 @@ const formatDate = (value?: string | null) => {
     return "—";
   }
 };
+
+const FileIcon = ({ className = "h-4 w-4" }: { className?: string }) => (
+  <Image
+    src="/misc/file-icon.svg"
+    alt="file icon"
+    width={20}
+    height={20}
+    className={className}
+  />
+);
 
 const markdownComponents: Components = {
   h1: ({ children }) => (
@@ -150,17 +161,40 @@ export default async function BlogArticle({
 
   return (
     <>
-      <div
-        className="relative w-screen"
-        style={heroWrapperStyles}
-        aria-hidden="true"
-      >
+      <div className="relative w-screen" style={heroWrapperStyles}>
         <div className="relative h-[600px] w-full overflow-hidden">
           <div
             className="absolute inset-0"
             style={{ background: heroBackground }}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/20 to-black/60" />
+          <div className="relative z-10 mx-auto flex h-full w-full max-w-6xl items-center px-4 sm:px-8">
+            <div className="relative w-full max-w-[500px] -ml-5 text-white">
+              <div className="inline-flex h-12 items-end justify-center bg-black px-6">
+                <div className="inline-flex items-center gap-2 rounded-full bg-background-yellow px-3 py-[0.3rem] text-xs font-semibold text-black">
+                  {topicLabel}
+                </div>
+              </div>
+              <div className="flex w-123 flex-col bg-black px-6 py-6">
+                <h1 className="text-3xl font-semibold leading-tight md:text-4xl">
+                  {attrs.title ?? "Untitled Post"}
+                </h1>
+                <div className="mt-3 flex flex-wrap items-center justify-between gap-4">
+                  <Link
+                    href="#article-content"
+                    className="flex items-center gap-1 rounded-full text-sm font-semibold hover:bg-white/5"
+                  >
+                    Read
+                    <ArrowIcon className="h-6 w-6" color="purple" />
+                  </Link>
+                  <div className="flex items-center gap-2 pr-6 text-sm font-normal text-white/70">
+                    <FileIcon />
+                    {formatReadTime(attrs.readTime ?? undefined)}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -174,7 +208,7 @@ export default async function BlogArticle({
         </Link>
 
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px]">
-          <article className="space-y-10">
+          <article className="space-y-10" id="article-content">
             <div className="overflow-hidden rounded-2xl border border-white/10 bg-black/30">
               <div className="space-y-5 p-6 sm:p-8">
                 <div className="inline-flex items-center gap-2 rounded-full bg-background-yellow px-3 py-1 text-xs font-semibold text-black">
