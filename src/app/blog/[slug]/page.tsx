@@ -138,7 +138,6 @@ export default async function BlogArticle({
 
   const attrs = targetPost.attributes ?? {};
   const coverUrl = attrs.coverImg?.data?.attributes?.url;
-  const topicLabel = attrs.topic ?? "General";
   const authorName = attrs.author ?? "Lite-Tech Editorial";
   const heroBackground = coverUrl
     ? `url(${normalizedBaseUrl}${coverUrl}) center center / cover no-repeat`
@@ -169,8 +168,17 @@ export default async function BlogArticle({
             style={{ background: heroBackground }}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/20 to-black/60" />
-          <div className="relative z-10 mx-auto flex h-full w-full max-w-6xl items-center px-4 sm:px-8">
-            <div className="relative w-full max-w-[500px] -ml-5 text-white">
+          <div className="relative z-10 mx-auto flex flex-col h-full w-full max-w-6xl justify-center px-4 sm:px-8">
+            <Link href="/" className="flex w-fit gap-2 mb-5 text-white">
+              <Image
+                src="/arrows/left-arrow.svg"
+                width={20}
+                height={20}
+                alt="arrow left"
+              />
+              <p className="font-semibold">Blog</p>
+            </Link>
+            <div className="relative w-full max-w-[500px] text-white">
               <div className="flex w-fit items-end h-16 bg-white px-6">
                 <div className="inline-flex items-center gap-4">
                   <Image
@@ -202,44 +210,8 @@ export default async function BlogArticle({
       </div>
 
       <div className="mt-10 space-y-10">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-white/80 transition hover:text-background-yellow"
-        >
-          <ArrowIcon className="h-5 w-5 -rotate-180" />
-          Back to briefings
-        </Link>
-
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px]">
           <article className="space-y-10" id="article-content">
-            <div className="overflow-hidden rounded-2xl bg-black/30">
-              <div className="space-y-5 p-6 sm:p-8">
-                <div className="inline-flex items-center gap-2 rounded-full bg-background-yellow px-3 py-1 text-xs font-semibold text-black">
-                  {topicLabel}
-                </div>
-                <div className="space-y-3">
-                  <h1 className="text-3xl font-semibold leading-tight text-white md:text-4xl">
-                    {attrs.title ?? "Untitled Post"}
-                  </h1>
-                  {attrs.subtitle ? (
-                    <p className="text-base text-white/80">{attrs.subtitle}</p>
-                  ) : null}
-                </div>
-                <div className="flex flex-wrap gap-6 text-sm text-white/70">
-                  <div className="flex flex-col">
-                    <span className="text-white">By {authorName}</span>
-                    <span className="text-white/60">
-                      {formatDate(attrs.publishedAt ?? attrs.createdAt)}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="h-1 w-1 rounded-full bg-white/40" />
-                    {formatReadTime(attrs.readTime ?? undefined)}
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <div className="space-y-6">
               <ReactMarkdown components={markdownComponents}>
                 {ARTICLE_BODY}
