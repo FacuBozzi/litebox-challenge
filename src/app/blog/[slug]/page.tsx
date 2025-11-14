@@ -188,16 +188,16 @@ export default async function BlogArticle({
     <>
       <div className="fixed inset-0 -z-10 bg-white" aria-hidden="true" />
       <div className="relative w-screen" style={heroWrapperStyles}>
-        <div className="relative h-[520px] w-full overflow-hidden md:h-[700px]">
+        <div className="relative h-[480px] w-full overflow-hidden md:h-[700px]">
           <div
             className="absolute inset-0"
             style={{ background: heroBackground }}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/20 to-black/60" />
-          <div className="relative z-10 mx-auto flex h-full w-full max-w-6xl flex-col justify-end px-4 sm:px-8 md:justify-center">
+          <div className="relative z-10 mx-auto flex h-full w-full max-w-6xl flex-col justify-start px-4 pt-[calc(var(--navbar-height,0px)+2.5rem)] sm:px-8 md:justify-center md:pt-0">
             <Link
               href="/"
-              className="mb-4 flex w-full px-6 md:px-0 gap-2 text-white md:mb-5"
+              className="relative z-10 mb-4 flex w-full px-0 gap-2 text-white md:mb-6"
             >
               <Image
                 src="/arrows/left-arrow.svg"
@@ -207,7 +207,7 @@ export default async function BlogArticle({
               />
               <p className="font-semibold">Blog</p>
             </Link>
-            <div className="relative mx-auto w-full max-w-[460px] px-6 sm:pl-0 sm:pr-0 md:mx-0 md:max-w-[500px] md:pl-0">
+            <div className="absolute z-0 left-1/2 top-1/2 w-full max-w-[460px] mt-4 md:mt-0 -translate-x-1/2 -translate-y-1/2 px-6 sm:pl-0 sm:pr-0 md:relative md:left-auto md:top-auto md:mx-0 md:max-w-[500px] md:translate-x-0 md:translate-y-0 md:pl-0 md:z-auto">
               <div className="inline-flex h-12 w-fit items-end justify-center bg-white px-6 md:h-16">
                 <div className="inline-flex items-center gap-4">
                   <Image
