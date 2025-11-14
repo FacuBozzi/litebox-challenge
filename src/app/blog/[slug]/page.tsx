@@ -63,28 +63,62 @@ const FileIcon = ({ className = "h-4 w-4" }: { className?: string }) => (
   />
 );
 
+const socialMediaPlatforms = [
+  {
+    id: "linkedin",
+    label: "LinkedIn",
+    logo: "/social-media/linkedin-black-logo.svg",
+  },
+  {
+    id: "facebook",
+    label: "Facebook",
+    logo: "/social-media/facebook-black-logo.svg",
+  },
+  { id: "x", label: "X", logo: "/social-media/x-black-logo.svg" },
+] as const;
+
+const SocialMediaSection = () => (
+  <aside className="w-full">
+    <h2 className="text-md font-semibold text-black">Share on</h2>
+    <div className="mt-7 flex gap-6">
+      {socialMediaPlatforms.map((platform) => (
+        <div
+          key={platform.id}
+          className="flex w-fit cursor-pointer items-center justify-center"
+        >
+          <Image
+            src={platform.logo}
+            alt={`${platform.label} logo`}
+            width={48}
+            height={48}
+            className="h-6 w-6 object-contain"
+          />
+        </div>
+      ))}
+    </div>
+  </aside>
+);
+
 const markdownComponents: Components = {
   h1: ({ children }) => (
-    <h2 className="mt-10 text-2xl font-semibold leading-tight text-black first:mt-0">
+    <h2 className="mt-12 text-lg font-semibold leading-tight text-black first:mt-0">
       {children}
     </h2>
   ),
   p: ({ children }) => (
-    <p className="mt-4 text-base leading-relaxed text-extra-muted">
-      {children}
-    </p>
+    <p className="mt-6 text-sm leading-relaxed text-extra-muted">{children}</p>
   ),
   img: ({ alt, src }) => (
     // eslint-disable-next-line @next/next/no-img-element
     <img
       src={src ?? ""}
       alt={alt ?? ""}
-      className="my-8 w-full rounded-xl border border-white/10 bg-black/40 object-cover"
+      className="my-16 w-full rounded-xl border border-white/10 bg-black/40 object-cover"
       loading="lazy"
     />
   ),
   blockquote: ({ children }) => (
-    <blockquote className="my-8 border-l-4 border-background-yellow bg-white/5 p-6 [&_p]:text-xl! [&_p]:mt-0! [&_p]:text-black! font-bold text-white">
+    <blockquote className="border-l-4 border-background-yellow bg-white/5 p-6 my-14 ml-5 [&_p]:text-xl! [&_p]:mt-0! [&_p]:text-black! font-bold text-white">
       {children}
     </blockquote>
   ),
@@ -201,7 +235,8 @@ export default async function BlogArticle({
       </div>
 
       <div className="-mt-10 space-y-10">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px]">
+        <div className="grid gap-10 lg:grid-cols-[220px_minmax(0,1fr)_280px]">
+          <SocialMediaSection />
           <article className="space-y-10" id="article-content">
             <div className="space-y-6">
               <ReactMarkdown components={markdownComponents}>
