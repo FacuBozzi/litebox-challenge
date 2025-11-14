@@ -428,10 +428,9 @@ export default async function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#030304] px-4 py-6 pt-0 text-white sm:px-8">
-      <div className="mx-auto flex max-w-6xl flex-col gap-10">
-        <Navbar />
-
+    <div className="min-h-screen bg-black px-4 py-6 pt-0 text-white sm:px-8">
+      <Navbar />
+      <div className="mx-auto flex max-w-6xl flex-col gap-10 pt-10">
         <section className="space-y-5">
           <p className="text-md font-semibold text-white">Today story</p>
           <article
