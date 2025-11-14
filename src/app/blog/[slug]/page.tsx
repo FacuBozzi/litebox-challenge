@@ -131,14 +131,17 @@ export default async function BlogArticle({
   const heroBackground = coverUrl
     ? `url(${normalizedBaseUrl}${coverUrl}) center center / cover no-repeat`
     : "linear-gradient(135deg, #1f1f1f, #0f0f0f)";
+  const heroWrapperStyles = {
+    marginLeft: "calc(50% - 50vw)",
+    marginRight: "calc(50% - 50vw)",
+    transform: "translateY(calc(-1 * (var(--navbar-height, 0px) + 2.5rem)))",
+  };
 
   const mostViewedSource = postsData.filter(
     (entry) => entry.id !== targetPost.id,
   );
   const mostViewedPosts =
-    mostViewedSource.length > 4
-      ? mostViewedSource.slice(-4)
-      : mostViewedSource;
+    mostViewedSource.length > 4 ? mostViewedSource.slice(-4) : mostViewedSource;
 
   const mostViewedItems =
     mostViewedPosts.length > 0
@@ -146,60 +149,72 @@ export default async function BlogArticle({
       : fallbackMostViewedItems;
 
   return (
-    <div className="space-y-10">
-      <Link
-        href="/"
-        className="inline-flex items-center gap-2 text-sm font-semibold text-white/80 transition hover:text-background-yellow"
+    <>
+      <div
+        className="relative w-screen"
+        style={heroWrapperStyles}
+        aria-hidden="true"
       >
-        <ArrowIcon className="h-5 w-5 -rotate-180" />
-        Back to briefings
-      </Link>
-
-      <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px]">
-        <article className="space-y-10">
-          <div className="overflow-hidden rounded-2xl border border-white/10 bg-black/30">
-            <div
-              className="h-80 w-full bg-cover bg-center"
-              style={{ background: heroBackground }}
-            >
-              <div className="h-full w-full bg-gradient-to-t from-black/80 to-black/10" />
-            </div>
-            <div className="space-y-5 p-6 sm:p-8">
-              <div className="inline-flex items-center gap-2 rounded-full bg-background-yellow px-3 py-1 text-xs font-semibold text-black">
-                {topicLabel}
-              </div>
-              <div className="space-y-3">
-                <h1 className="text-3xl font-semibold leading-tight text-white md:text-4xl">
-                  {attrs.title ?? "Untitled Post"}
-                </h1>
-                {attrs.subtitle ? (
-                  <p className="text-base text-white/80">{attrs.subtitle}</p>
-                ) : null}
-              </div>
-              <div className="flex flex-wrap gap-6 text-sm text-white/70">
-                <div className="flex flex-col">
-                  <span className="text-white">By {attrs.author ?? "Lite-Tech Editorial"}</span>
-                  <span className="text-white/60">
-                    {formatDate(attrs.publishedAt ?? attrs.createdAt)}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="h-1 w-1 rounded-full bg-white/40" />
-                  {formatReadTime(attrs.readTime ?? undefined)}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-6">
-            <ReactMarkdown components={markdownComponents}>
-              {ARTICLE_BODY}
-            </ReactMarkdown>
-          </div>
-        </article>
-
-        <MostViewed heading="Related headlines" items={mostViewedItems} />
+        <div className="relative h-[600px] w-full overflow-hidden">
+          <div
+            className="absolute inset-0"
+            style={{ background: heroBackground }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/20 to-black/60" />
+        </div>
       </div>
-    </div>
+
+      <div className="mt-10 space-y-10">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-white/80 transition hover:text-background-yellow"
+        >
+          <ArrowIcon className="h-5 w-5 -rotate-180" />
+          Back to briefings
+        </Link>
+
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px]">
+          <article className="space-y-10">
+            <div className="overflow-hidden rounded-2xl border border-white/10 bg-black/30">
+              <div className="space-y-5 p-6 sm:p-8">
+                <div className="inline-flex items-center gap-2 rounded-full bg-background-yellow px-3 py-1 text-xs font-semibold text-black">
+                  {topicLabel}
+                </div>
+                <div className="space-y-3">
+                  <h1 className="text-3xl font-semibold leading-tight text-white md:text-4xl">
+                    {attrs.title ?? "Untitled Post"}
+                  </h1>
+                  {attrs.subtitle ? (
+                    <p className="text-base text-white/80">{attrs.subtitle}</p>
+                  ) : null}
+                </div>
+                <div className="flex flex-wrap gap-6 text-sm text-white/70">
+                  <div className="flex flex-col">
+                    <span className="text-white">
+                      By {attrs.author ?? "Lite-Tech Editorial"}
+                    </span>
+                    <span className="text-white/60">
+                      {formatDate(attrs.publishedAt ?? attrs.createdAt)}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="h-1 w-1 rounded-full bg-white/40" />
+                    {formatReadTime(attrs.readTime ?? undefined)}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <ReactMarkdown components={markdownComponents}>
+                {ARTICLE_BODY}
+              </ReactMarkdown>
+            </div>
+          </article>
+
+          <MostViewed heading="Related headlines" items={mostViewedItems} />
+        </div>
+      </div>
+    </>
   );
 }

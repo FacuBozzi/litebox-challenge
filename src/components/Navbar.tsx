@@ -1,19 +1,49 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowIcon } from "@/components/ArrowIcon";
 import { PostCreationModal } from "@/components/PostCreationModal";
 
 export function Navbar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navbarRef = useRef<HTMLDivElement>(null);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = useCallback(() => setIsModalOpen(false), []);
 
+  useEffect(() => {
+    const node = navbarRef.current;
+    if (!node) {
+      return;
+    }
+
+    const updateNavbarHeight = () => {
+      const height = node.offsetHeight;
+      document.documentElement.style.setProperty(
+        "--navbar-height",
+        `${height}px`,
+      );
+    };
+
+    updateNavbarHeight();
+
+    if (typeof ResizeObserver !== "undefined") {
+      const observer = new ResizeObserver(updateNavbarHeight);
+      observer.observe(node);
+      return () => observer.disconnect();
+    }
+
+    window.addEventListener("resize", updateNavbarHeight);
+    return () => window.removeEventListener("resize", updateNavbarHeight);
+  }, []);
+
   return (
     <>
-      <div className="sticky inset-x-0 top-0 z-40 w-full bg-black/80 backdrop-blur-sm">
+      <div
+        ref={navbarRef}
+        className="sticky inset-x-0 top-0 z-40 w-full bg-black/80 backdrop-blur-sm"
+      >
         <header className="mx-auto flex w-full max-w-6xl flex-col px-4 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-8">
           <div className="flex items-center gap-4">
             <Image
