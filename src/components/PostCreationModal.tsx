@@ -1,7 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { type ChangeEvent, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import {
+  type ChangeEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 type FlowState = "selecting" | "uploading" | "failed" | "success" | "completed";
 
@@ -9,19 +16,22 @@ type PostCreationModalProps = {
   onCloseAction: () => void;
 };
 
+const resolveApiHost = () => {
+  const host = process.env.LITE_TECH_API_HOST ?? "http://localhost:8080";
+  return host.replace(/\/$/, "");
+};
+
 export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
+  const router = useRouter();
   const [flowState, setFlowState] = useState<FlowState>("selecting");
   const [title, setTitle] = useState("");
   const [selectedFileName, setSelectedFileName] = useState("");
   const [titleError, setTitleError] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [file, setFile] = useState<File | null>(null);
+  const [isFinalizing, setIsFinalizing] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (flowState !== "uploading") return;
-    const timer = setTimeout(() => setFlowState("failed"), 1700);
-    return () => clearTimeout(timer);
-  }, [flowState]);
+  const apiHost = resolveApiHost();
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -43,35 +53,101 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
   const paddingClasses =
     flowState === "completed" ? "px-12 py-20 pb-10" : "px-12 py-14";
 
-  const handleRetry = () => setFlowState("success");
+  const refreshRelatedPosts = useCallback(async () => {
+    try {
+      const response = await fetch(`${apiHost}/api/posts/related`, {
+        method: "GET",
+        cache: "no-store",
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to refresh related posts (${response.status})`);
+      }
+      const payload = await response.json();
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(
+          new CustomEvent("related-posts:updated", { detail: payload }),
+        );
+      }
+    } catch (error) {
+      console.error("Failed to refresh related posts", error);
+    } finally {
+      router.refresh();
+    }
+  }, [apiHost, router]);
+
+  const finalizeCreation = useCallback(async () => {
+    if (isFinalizing) {
+      return;
+    }
+    setIsFinalizing(true);
+    try {
+      await refreshRelatedPosts();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      onCloseAction();
+    }
+  }, [isFinalizing, onCloseAction, refreshRelatedPosts]);
+
+  const handleRetry = () => setFlowState("selecting");
 
   const validateFields = () => {
     const hasTitle = title.trim().length > 0;
-    const hasImage = Boolean(selectedFileName);
+    const hasImage = Boolean(file);
     setTitleError(!hasTitle);
     setImageError(!hasImage);
     return hasTitle && hasImage;
   };
 
-  const handleConfirm = () => {
-    if (!validateFields()) {
+  const handleConfirm = async () => {
+    if (flowState === "uploading") {
       return;
     }
     if (flowState === "success") {
       setFlowState("completed");
+      void finalizeCreation();
+      return;
+    }
+    if (!validateFields() || !file) {
+      return;
+    }
+
+    try {
+      setFlowState("uploading");
+
+      const body = new FormData();
+      body.append("title", title.trim());
+      body.append("image", file);
+
+      const response = await fetch(`${apiHost}/api/post/related`, {
+        method: "POST",
+        body,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Upload failed with status ${response.status}`);
+      }
+
+      setFlowState("success");
+    } catch (error) {
+      console.error(error);
+      setFlowState("failed");
     }
   };
-  const handleDone = () => onCloseAction();
+  const handleDone = () => {
+    void finalizeCreation();
+  };
   const handleCancel = () => onCloseAction();
 
   const handleBrowseClick = () => fileInputRef.current?.click();
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-    setSelectedFileName(file.name);
+    const nextFile = event.target.files?.[0];
+    if (!nextFile) return;
+    setFile(nextFile);
+    setSelectedFileName(nextFile.name);
     setImageError(false);
-    setFlowState("uploading");
+    setFlowState("selecting");
   };
 
   const renderProgressContent = () => {
@@ -241,9 +317,12 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
               <button
                 type="button"
                 onClick={handleDone}
-                className="w-28 bg-black px-6 py-3 text-base font-semibold text-white transition hover:scale-[1.01]"
+                disabled={isFinalizing}
+                className={`w-28 bg-black px-6 py-3 text-base font-semibold text-white transition hover:scale-[1.01] ${
+                  isFinalizing ? "cursor-not-allowed opacity-70" : ""
+                }`}
               >
-                Done
+                {isFinalizing ? "Closing..." : "Done"}
               </button>
             </div>
           )}
