@@ -59,7 +59,7 @@ export function Navbar() {
           <button
             type="button"
             onClick={openModal}
-            className="group flex items-center justify-end gap-1 text-sm font-semibold text-white transition hover:text-[#c3ff3c]"
+            className="interactive-hover group flex items-center justify-end gap-1 text-sm font-semibold text-white transition hover:text-[#c3ff3c]"
           >
             <span>New post</span>
             <ArrowIcon className="h-6 w-6" />

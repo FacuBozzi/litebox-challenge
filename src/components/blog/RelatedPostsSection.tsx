@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useCallback, useState, type ReactNode } from "react";
 import { ArrowIcon } from "@/components/ArrowIcon";
 import { FileIcon } from "@/components/FileIcon";
@@ -72,9 +71,12 @@ const ReadAction = ({
   children: ReactNode;
 }) =>
   slug ? (
-    <button className={className}>{children}</button>
+    <button className={`interactive-hover ${className}`}>{children}</button>
   ) : (
-    <span className={`${className} cursor-not-allowed opacity-60`}>
+    <span
+      className={`interactive-hover ${className} cursor-not-allowed opacity-60`}
+      aria-disabled="true"
+    >
       {children}
     </span>
   );
@@ -150,7 +152,7 @@ export const RelatedPostsSection = ({
           <button
             type="button"
             onClick={openModal}
-            className="group flex items-center justify-end gap-1 text-sm font-semibold text-black transition hover:text-[#c3ff3c]"
+            className="interactive-hover group flex items-center justify-end gap-1 text-sm font-semibold text-black transition hover:text-[#c3ff3c]"
           >
             <span>New post</span>
             <ArrowIcon className="h-6 w-6" color="purple" />

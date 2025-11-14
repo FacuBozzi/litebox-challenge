@@ -2,9 +2,15 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Architecture Notes
 
-- The landing page (`src/app/page.tsx`) is a Server Component (`"use client"` is absent) so it renders on the server.
-- During that render the `Home` function invokes `fetch(`${process.env.LITE_TECH_API_HOST}/api/posts?limit=14`, { cache: "no-store" })`, pulling the latest posts on the server before hydrating the client.
-- Because the data is loaded server-side, users see fresh content on first paint and we avoid exposing backend credentials to the browser.
+- The landing page (`src/app/page.tsx`) is a Server Component (`"use client"` is absent) so it renders entirely on the server.
+- During that render the `Home` function invokes `fetch(`${process.env.LITE_TECH_API_HOST}/api/posts?limit=14`, { cache: "no-store" })`, which means **SSR with no caching**. We are not using ISR here—every request fetches fresh data so that the hero, story grid, and “Most viewed” sidebar stay current without waiting for revalidation windows.
+- Because the data is loaded server-side, users see content on first paint and backend credentials stay on the server. Latency stays low thanks to the short payload (we only request 14 posts) and because Strapi responses are rendered in streaming HTML instead of waiting for client-side waterfalls.
+- Each section of the homepage lives in its own component under `src/components/home`, which keeps rendering logic lean and lets us stream sections independently as soon as their data is ready.
+- Mock/fallback content (hero, cards, topic pills, etc.) lives in `src/data`, so the main components stay focused on rendering and production data can replace the mocks seamlessly.
+
+## Design Intent
+
+The layout was designed desktop-first following the original Figma spec, and then we added explicit adjustments for small/mobile screens so key flows (hero, topics, story grid, modal) remain usable. I did not spend time perfecting tablet or "in-between" breakpoints due to the short challenge window (and I was busy with other challenges this week), so expect the best fidelity on large screens.
 
 ## Getting Started
 

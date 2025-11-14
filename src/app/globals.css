@@ -66,3 +66,52 @@ button:disabled {
 .bg-purple {
     background-color: var(--color-purple);
 }
+
+.interactive-hover {
+    transition:
+        transform 200ms ease,
+        box-shadow 200ms ease,
+        opacity 150ms ease;
+}
+
+.interactive-hover:hover,
+.interactive-hover:focus-visible {
+    transform: translateY(-1px) scale(1.01);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+}
+
+.interactive-hover:disabled,
+.interactive-hover[aria-disabled="true"],
+.interactive-hover:disabled:hover,
+.interactive-hover[aria-disabled="true"]:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.modal-overlay {
+    animation: modal-overlay-fade 220ms ease-out;
+}
+
+.modal-content {
+    animation: modal-content-pop 260ms cubic-bezier(0.175, 0.885, 0.335, 1.1);
+}
+
+@keyframes modal-overlay-fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modal-content-pop {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}

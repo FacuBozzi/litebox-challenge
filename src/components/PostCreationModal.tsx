@@ -189,7 +189,7 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
           <button
             type="button"
             onClick={handleBrowseClick}
-            className={`flex w-full max-w-[330px] items-center justify-center gap-2 border-2 ${
+            className={`interactive-hover flex w-full max-w-[330px] items-center justify-center gap-2 border-2 ${
               imageError ? "border-[#FF2F2F]" : "border-black"
             } bg-transparent px-4 py-3 text-base font-semibold text-[#1c1735] transition hover:bg-white/40`}
           >
@@ -233,7 +233,7 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
             <div className="mt-1 flex justify-end">
               <button
                 type="button"
-                className={textClass}
+                className={`${textClass} interactive-hover`}
                 onClick={handleCancel}
               >
                 Cancel
@@ -251,7 +251,11 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
           <div className="mt-1 h-2.5 w-full bg-[#FF2F2F]" />
           {showRetryAction && (
             <div className="mt-1 flex justify-end">
-              <button type="button" className={textClass} onClick={handleRetry}>
+              <button
+                type="button"
+                className={`${textClass} interactive-hover`}
+                onClick={handleRetry}
+              >
                 Retry
               </button>
             </div>
@@ -273,7 +277,7 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-[#030304]/75 px-4"
+      className="modal-overlay fixed inset-0 z-50 flex items-center justify-center bg-[#030304]/75 px-4"
       role="dialog"
       aria-modal="true"
     >
@@ -283,12 +287,12 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
           aria-hidden="true"
         />
         <div
-          className={`relative pt-20 border-3 border-black bg-background-yellow text-[#1b1434] shadow-[6px_6px_0_#000] ${paddingClasses}`}
+          className={`modal-content relative border-3 border-black bg-background-yellow pt-20 text-[#1b1434] shadow-[6px_6px_0_#000] ${paddingClasses}`}
         >
           <button
             type="button"
             aria-label="Close modal"
-            className="absolute right-8 top-6 mt-4 mr-3 transition hover:scale-105"
+            className="interactive-hover absolute right-8 top-6 mr-3 mt-4"
             onClick={handleCancel}
           >
             <Image
@@ -337,7 +341,7 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
                 type="button"
                 onClick={handleConfirm}
                 disabled={isSubmitting || flowState !== "success"}
-                className={`mt-2 w-30 cursor-pointer bg-black px-6 py-3 text-base font-semibold text-white transition hover:scale-[1.01] ${
+                className={`interactive-hover mt-2 w-30 cursor-pointer bg-black px-6 py-3 text-base font-semibold text-white ${
                   isSubmitting || flowState !== "success"
                     ? "cursor-not-allowed opacity-60"
                     : ""
@@ -355,7 +359,7 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
                 type="button"
                 onClick={handleDone}
                 disabled={isFinalizing}
-                className={`w-28 bg-black px-6 py-3 text-base font-semibold text-white transition hover:scale-[1.01] ${
+                className={`interactive-hover w-28 bg-black px-6 py-3 text-base font-semibold text-white ${
                   isFinalizing ? "cursor-not-allowed opacity-70" : ""
                 }`}
               >
