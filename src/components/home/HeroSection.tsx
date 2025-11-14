@@ -13,39 +13,40 @@ export function HeroSection({ story, slug }: HeroSectionProps) {
     <section className="space-y-5">
       <p className="text-md font-semibold text-white">Today story</p>
       <article
-        className="relative flex h-80 items-center overflow-hidden border border-white/10"
+        className="story-card-mobile-tall relative flex min-h-[360px] items-end overflow-hidden border border-white/10 px-4 pb-6 text-black md:h-80 md:items-center md:px-0 md:pb-0"
         style={{ background: story.background }}
       >
-        <div className="relative ml-7">
-          <div className="inline-flex h-12 items-end justify-center bg-black px-6">
+        <div className="absolute inset-0 opacity-40 mix-blend-screen bg-[repeating-linear-gradient(45deg,_rgba(255,255,255,0.05)_0,_rgba(255,255,255,0.05)_2px,_transparent_2px,_transparent_8px)]" />
+        <div className="relative mx-auto w-full max-w-[460px] pl-6 pr-6 text-black sm:pl-0 sm:pr-0 lg:max-w-[520px] md:ml-7 md:mr-0 md:w-123 md:text-white">
+          <div className="inline-flex h-12 items-end justify-center bg-white px-6 md:bg-black">
             <div className="inline-flex items-center gap-2 rounded-full bg-background-yellow px-3 py-[0.3rem] text-xs font-semibold text-black">
               {story.category}
             </div>
           </div>
 
-          <div className="flex w-123 flex-col bg-black px-6 py-6">
+          <div className="flex flex-col gap-3 bg-white px-6 py-5 text-black md:bg-black md:px-6 md:py-6 md:text-white">
             <h1 className="text-3xl font-semibold leading-tight md:text-4xl">
               {story.title}
             </h1>
-            <div className="mt-3 flex justify-between">
+            <div className="mt-3 flex items-center justify-between">
               {slug ? (
                 <Link
                   href={`/blog/${slug}`}
-                  className="interactive-hover flex items-center gap-1 rounded-full text-sm font-semibold"
+                  className="interactive-hover flex items-center gap-1 rounded-full text-sm font-semibold text-black md:text-white"
                 >
                   Read
                   <ArrowIcon className="h-6 w-6" color="purple" />
                 </Link>
               ) : (
                 <span
-                  className="interactive-hover flex cursor-not-allowed items-center gap-1 rounded-full text-sm font-semibold opacity-60"
+                  className="interactive-hover flex cursor-not-allowed items-center gap-1 rounded-full text-sm font-semibold text-black opacity-60 md:text-white"
                   aria-disabled="true"
                 >
                   Read
                   <ArrowIcon className="h-6 w-6" color="purple" />
                 </span>
               )}
-              <div className="flex items-center gap-2 pr-6 text-sm font-normal text-extra-muted">
+              <div className="flex items-center gap-2 text-sm font-normal text-extra-muted md:pr-6">
                 <FileIcon className="h-4 w-4" />
                 {story.readTime}
               </div>

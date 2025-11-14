@@ -7,14 +7,14 @@ type TopicsSectionProps = {
 export function TopicsSection({ topics }: TopicsSectionProps) {
   return (
     <section className="mt-5">
-      <div className="flex items-center">
-        <p className="mr-5 font-bold">Topics</p>
-        <div className="flex flex-wrap gap-2">
+      <div className="flex flex-col gap-3 md:flex-row md:items-center">
+        <p className="font-bold md:mr-5">Topics</p>
+        <div className="flex gap-2 overflow-x-auto pb-2 md:flex-wrap md:overflow-visible">
           {topics.map((topic, index) => (
             <button
               key={`${topic.label}-${index}`}
               type="button"
-              className={`interactive-hover flex items-end gap-2 rounded-full border px-3 py-2 text-sm font-normal transition ${
+              className={`interactive-hover flex shrink-0 items-end gap-2 rounded-full border px-3 py-2 text-sm font-normal transition ${
                 topic.active
                   ? "border-transparent bg-background-yellow text-black"
                   : "border-white/15 bg-black/30 text-muted"

@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { MostViewed, type MostViewedItem } from "@/components/MostViewed";
 import { StoryCard } from "@/components/home/StoryCard";
+import { NewsletterBanner } from "@/components/home/NewsletterBanner";
 import type { StoryCardWithSlug } from "@/components/home/types";
 
 type StoriesSectionProps = {
@@ -62,22 +63,7 @@ export function StoriesSection({
                       />
                     ))}
                 </div>
-                {groupIndex === 0 && (
-                  <div className="border border-white/10 bg-purple px-4 py-8 text-white sm:flex sm:items-center sm:justify-between sm:gap-6 md:px-10 md:py-9">
-                    <p className="text-lg font-normal leading-relaxed sm:max-w-3xl sm:text-[1.45rem]">
-                      Sign up for our newsletter{" "}
-                      <span className="font-semibold">
-                        and get daily updates
-                      </span>
-                    </p>
-                    <button
-                      type="button"
-                      className="interactive-hover mt-6 inline-flex items-center justify-center bg-background-yellow px-7.5 py-3 text-sm font-medium text-black sm:mt-0"
-                    >
-                      Subscribe
-                    </button>
-                  </div>
-                )}
+                {groupIndex === 0 && <NewsletterBanner />}
               </Fragment>
             );
           })}

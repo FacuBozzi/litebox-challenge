@@ -45,7 +45,7 @@ export function Navbar() {
         ref={navbarRef}
         className="sticky inset-x-0 top-0 z-40 w-full bg-black/80 backdrop-blur-sm"
       >
-        <header className="mx-auto flex w-full max-w-6xl flex-col px-4 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+        <header className="mx-auto flex w-full max-w-6xl px-4 py-6 flex-row items-center justify-between sm:px-8">
           <div className="flex items-center gap-4">
             <Link href="/">
               <Image
