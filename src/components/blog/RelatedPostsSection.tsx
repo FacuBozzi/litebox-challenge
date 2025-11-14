@@ -107,7 +107,7 @@ const RelatedStoryCard = ({ card }: { card: RelatedStoryCardData }) => (
         <div className="mt-1 flex items-center justify-between text-sm font-semibold">
           <ReadAction
             slug={card.slug}
-            className="group flex items-center gap-1 transition hover:text-background-yellow"
+            className="group flex items-center gap-1 transition"
           >
             Read
             <ArrowIcon
@@ -152,7 +152,7 @@ export const RelatedPostsSection = ({
           <button
             type="button"
             onClick={openModal}
-            className="interactive-hover group flex items-center justify-end gap-1 text-sm font-semibold text-black transition hover:text-[#c3ff3c]"
+            className="interactive-hover group flex items-center justify-end gap-1 text-sm font-semibold text-black transition"
           >
             <span>New post</span>
             <ArrowIcon className="h-6 w-6" color="purple" />

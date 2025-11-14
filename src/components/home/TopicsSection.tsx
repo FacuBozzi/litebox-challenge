@@ -17,7 +17,7 @@ export function TopicsSection({ topics }: TopicsSectionProps) {
               className={`interactive-hover flex items-end gap-2 rounded-full border px-3 py-2 text-sm font-normal transition ${
                 topic.active
                   ? "border-transparent bg-background-yellow text-black"
-                  : "border-white/15 bg-black/30 text-muted hover:text-white"
+                  : "border-white/15 bg-black/30 text-muted"
               }`}
             >
               {topic.label}

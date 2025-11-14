@@ -68,16 +68,12 @@ button:disabled {
 }
 
 .interactive-hover {
-    transition:
-        transform 200ms ease,
-        box-shadow 200ms ease,
-        opacity 150ms ease;
+    transition: transform 180ms ease;
 }
 
 .interactive-hover:hover,
 .interactive-hover:focus-visible {
-    transform: translateY(-1px) scale(1.01);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+    transform: scale(1.02);
 }
 
 .interactive-hover:disabled,
@@ -85,7 +81,6 @@ button:disabled {
 .interactive-hover:disabled:hover,
 .interactive-hover[aria-disabled="true"]:hover {
     transform: none;
-    box-shadow: none;
 }
 
 .modal-overlay {

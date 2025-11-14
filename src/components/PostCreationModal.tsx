@@ -191,7 +191,7 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
             onClick={handleBrowseClick}
             className={`interactive-hover flex w-full max-w-[330px] items-center justify-center gap-2 border-2 ${
               imageError ? "border-[#FF2F2F]" : "border-black"
-            } bg-transparent px-4 py-3 text-base font-semibold text-[#1c1735] transition hover:bg-white/40`}
+            } bg-transparent px-4 py-3 text-base font-semibold text-[#1c1735] transition`}
           >
             <span>Upload image</span>
             <Image
