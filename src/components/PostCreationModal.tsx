@@ -292,7 +292,7 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
           <button
             type="button"
             aria-label="Close modal"
-            className="interactive-hover absolute right-8 top-6 mr-3 mt-4"
+            className="absolute right-8 top-6 mr-3 mt-4"
             onClick={handleCancel}
           >
             <Image

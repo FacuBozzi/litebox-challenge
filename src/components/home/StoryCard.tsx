@@ -72,7 +72,7 @@ export function StoryCard({ story, variant }: StoryCardProps) {
             {story.slug ? (
               <Link
                 href={`/blog/${story.slug}`}
-                className={`interactive-hover group flex items-center gap-1 ${
+                className={`group flex items-center gap-1 transition-colors ${
                   isCompact ? "text-sm" : "text-base"
                 }`}
               >
@@ -84,7 +84,7 @@ export function StoryCard({ story, variant }: StoryCardProps) {
               </Link>
             ) : (
               <span
-                className={`interactive-hover group flex cursor-not-allowed items-center gap-1 opacity-60 ${
+                className={`group flex cursor-not-allowed items-center gap-1 opacity-60 ${
                   isCompact ? "text-sm" : "text-base"
                 }`}
                 aria-disabled="true"
