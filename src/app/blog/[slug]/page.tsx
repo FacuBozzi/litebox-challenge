@@ -47,9 +47,9 @@ euismod sem, accumsan volutpat augue ante ut elit. Phasellus rutrum, nulla vitae
 elit nisi placerat neque, vitae facilisis massa sapien a mi. Fusce sit amet blandit lectus.
 `;
 
-const formatReadTime = (value?: number, fallback = "— mins") =>
+const formatReadTime = (value?: number, fallback = "— mins read") =>
   typeof value === "number" && Number.isFinite(value)
-    ? `${value} mins`
+    ? `${value} mins read`
     : fallback;
 
 const formatDate = (value?: string | null) => {
@@ -139,6 +139,7 @@ export default async function BlogArticle({
   const attrs = targetPost.attributes ?? {};
   const coverUrl = attrs.coverImg?.data?.attributes?.url;
   const topicLabel = attrs.topic ?? "General";
+  const authorName = attrs.author ?? "Lite-Tech Editorial";
   const heroBackground = coverUrl
     ? `url(${normalizedBaseUrl}${coverUrl}) center center / cover no-repeat`
     : "linear-gradient(135deg, #1f1f1f, #0f0f0f)";
@@ -162,7 +163,7 @@ export default async function BlogArticle({
   return (
     <>
       <div className="relative w-screen" style={heroWrapperStyles}>
-        <div className="relative h-[600px] w-full overflow-hidden">
+        <div className="relative h-[700px] w-full overflow-hidden">
           <div
             className="absolute inset-0"
             style={{ background: heroBackground }}
@@ -170,24 +171,26 @@ export default async function BlogArticle({
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/20 to-black/60" />
           <div className="relative z-10 mx-auto flex h-full w-full max-w-6xl items-center px-4 sm:px-8">
             <div className="relative w-full max-w-[500px] -ml-5 text-white">
-              <div className="inline-flex h-12 items-end justify-center bg-black px-6">
-                <div className="inline-flex items-center gap-2 rounded-full bg-background-yellow px-3 py-[0.3rem] text-xs font-semibold text-black">
-                  {topicLabel}
+              <div className="flex w-fit items-end h-16 bg-white px-6">
+                <div className="inline-flex items-center gap-4">
+                  <Image
+                    src="/authors/avatar-photo.png"
+                    alt={`${authorName} avatar`}
+                    width={48}
+                    height={48}
+                    className="h-10 w-10 rounded-full object-cover"
+                  />
+                  <span className="text-lg font-normal text-extra-muted">
+                    By {authorName}
+                  </span>
                 </div>
               </div>
-              <div className="flex w-123 flex-col bg-black px-6 py-6">
-                <h1 className="text-3xl font-semibold leading-tight md:text-4xl">
+              <div className="flex w-123 -mt-px flex-col bg-white px-6 py-6">
+                <h1 className="text-3xl text-black font-semibold leading-tight md:text-4xl">
                   {attrs.title ?? "Untitled Post"}
                 </h1>
                 <div className="mt-3 flex flex-wrap items-center justify-between gap-4">
-                  <Link
-                    href="#article-content"
-                    className="flex items-center gap-1 rounded-full text-sm font-semibold hover:bg-white/5"
-                  >
-                    Read
-                    <ArrowIcon className="h-6 w-6" color="purple" />
-                  </Link>
-                  <div className="flex items-center gap-2 pr-6 text-sm font-normal text-white/70">
+                  <div className="flex items-center gap-2 pr-6 text-sm font-normal text-extra-muted">
                     <FileIcon />
                     {formatReadTime(attrs.readTime ?? undefined)}
                   </div>
@@ -209,7 +212,7 @@ export default async function BlogArticle({
 
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px]">
           <article className="space-y-10" id="article-content">
-            <div className="overflow-hidden rounded-2xl border border-white/10 bg-black/30">
+            <div className="overflow-hidden rounded-2xl bg-black/30">
               <div className="space-y-5 p-6 sm:p-8">
                 <div className="inline-flex items-center gap-2 rounded-full bg-background-yellow px-3 py-1 text-xs font-semibold text-black">
                   {topicLabel}
@@ -224,9 +227,7 @@ export default async function BlogArticle({
                 </div>
                 <div className="flex flex-wrap gap-6 text-sm text-white/70">
                   <div className="flex flex-col">
-                    <span className="text-white">
-                      By {attrs.author ?? "Lite-Tech Editorial"}
-                    </span>
+                    <span className="text-white">By {authorName}</span>
                     <span className="text-white/60">
                       {formatDate(attrs.publishedAt ?? attrs.createdAt)}
                     </span>
