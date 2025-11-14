@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link";
-import { type ReactNode } from "react";
+import { useCallback, useState, type ReactNode } from "react";
 import { ArrowIcon } from "@/components/ArrowIcon";
 import { FileIcon } from "@/components/FileIcon";
+import { PostCreationModal } from "@/components/PostCreationModal";
 import type { RelatedPost } from "@/types/relatedPosts";
 
 type RelatedStoryCardData = {
@@ -126,6 +129,10 @@ export const RelatedPostsSection = ({
   relatedPosts,
   apiHost,
 }: RelatedPostsSectionProps) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = useCallback(() => setIsModalOpen(false), []);
+
   const relatedCards = mapRelatedPostsToCards(relatedPosts, apiHost);
   const hasRelatedPosts = relatedCards.length > 0;
   const relatedCardSlots = Array.from(
@@ -138,21 +145,34 @@ export const RelatedPostsSection = ({
   }
 
   return (
-    <section className="pt-20">
-      <p className="text-2xl font-bold text-black">Related posts</p>
-      <div className="mt-3 grid grid-cols-1 gap-6 md:grid-cols-3">
-        {relatedCardSlots.map((card, index) =>
-          card ? (
-            <RelatedStoryCard key={card.id} card={card} />
-          ) : (
-            <div
-              key={`related-card-placeholder-${index}`}
-              className="hidden min-h-80 md:block"
-              aria-hidden="true"
-            />
-          ),
-        )}
-      </div>
-    </section>
+    <>
+      <section className="pt-20">
+        <div className="flex justify-between">
+          <p className="text-2xl font-bold text-black">Related posts</p>
+          <button
+            type="button"
+            onClick={openModal}
+            className="group flex items-center justify-end gap-1 text-sm font-semibold text-black transition hover:text-[#c3ff3c]"
+          >
+            <span>New post</span>
+            <ArrowIcon className="h-6 w-6" color="purple" />
+          </button>
+        </div>
+        <div className="mt-3 grid grid-cols-1 gap-6 md:grid-cols-3">
+          {relatedCardSlots.map((card, index) =>
+            card ? (
+              <RelatedStoryCard key={card.id} card={card} />
+            ) : (
+              <div
+                key={`related-card-placeholder-${index}`}
+                className="hidden min-h-80 md:block"
+                aria-hidden="true"
+              />
+            ),
+          )}
+        </div>
+      </section>
+      {isModalOpen ? <PostCreationModal onCloseAction={closeModal} /> : null}
+    </>
   );
 };
