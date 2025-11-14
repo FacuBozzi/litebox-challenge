@@ -29,6 +29,8 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
   const [titleError, setTitleError] = useState(false);
   const [imageError, setImageError] = useState(false);
   const [file, setFile] = useState<File | null>(null);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFinalizing, setIsFinalizing] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const apiHost = resolveApiHost();
@@ -89,7 +91,40 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
     }
   }, [isFinalizing, onCloseAction, refreshRelatedPosts]);
 
-  const handleRetry = () => setFlowState("selecting");
+  useEffect(() => {
+    if (flowState !== "uploading") {
+      return;
+    }
+    setUploadProgress(0);
+    let animationFrame: number;
+    let startTimestamp: number | null = null;
+    const duration = 1500;
+
+    const animateProgress = (timestamp: number) => {
+      if (startTimestamp === null) {
+        startTimestamp = timestamp;
+      }
+      const elapsed = timestamp - startTimestamp;
+      const nextProgress = Math.min((elapsed / duration) * 100, 100);
+      setUploadProgress(nextProgress);
+
+      if (nextProgress < 100) {
+        animationFrame = requestAnimationFrame(animateProgress);
+      } else {
+        setFlowState("success");
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animateProgress);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [flowState]);
+
+  const handleRetry = () => {
+    setFlowState("selecting");
+    setUploadProgress(0);
+    setFile(null);
+    setSelectedFileName("");
+  };
 
   const validateFields = () => {
     const hasTitle = title.trim().length > 0;
@@ -100,20 +135,18 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
   };
 
   const handleConfirm = async () => {
-    if (flowState === "uploading") {
-      return;
-    }
-    if (flowState === "success") {
-      setFlowState("completed");
-      void finalizeCreation();
+    if (isSubmitting || flowState === "uploading") {
       return;
     }
     if (!validateFields() || !file) {
       return;
     }
+    if (flowState !== "success") {
+      return;
+    }
 
     try {
-      setFlowState("uploading");
+      setIsSubmitting(true);
 
       const body = new FormData();
       body.append("title", title.trim());
@@ -125,13 +158,16 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
       });
 
       if (!response.ok) {
-        throw new Error(`Upload failed with status ${response.status}`);
+        throw new Error(`Post creation failed with status ${response.status}`);
       }
 
-      setFlowState("success");
+      setFlowState("completed");
     } catch (error) {
       console.error(error);
-      setFlowState("failed");
+      window.alert("We could not create your post. Please try again later.");
+      onCloseAction();
+    } finally {
+      setIsSubmitting(false);
     }
   };
   const handleDone = () => {
@@ -147,7 +183,7 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
     setFile(nextFile);
     setSelectedFileName(nextFile.name);
     setImageError(false);
-    setFlowState("selecting");
+    setFlowState("uploading");
   };
 
   const renderProgressContent = () => {
@@ -190,11 +226,13 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
     if (flowState === "uploading") {
       return (
         <>
-          <div className={textClass}>Loading image 60%</div>
+          <div className={textClass}>
+            Loading image {Math.round(uploadProgress)}%
+          </div>
           <div className="mt-1 h-2.5 w-full overflow-hidden border border-black bg-white/40">
             <div
               className="h-full bg-black transition-[width] duration-300 ease-out"
-              style={{ width: "60%" }}
+              style={{ width: `${uploadProgress}%` }}
             />
           </div>
           {showCancelAction && (
@@ -304,9 +342,14 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
               <button
                 type="button"
                 onClick={handleConfirm}
-                className="mt-2 w-30 cursor-pointer bg-black px-6 py-3 text-base font-semibold text-white transition hover:scale-[1.01]"
+                disabled={isSubmitting || flowState !== "success"}
+                className={`mt-2 w-30 cursor-pointer bg-black px-6 py-3 text-base font-semibold text-white transition hover:scale-[1.01] ${
+                  isSubmitting || flowState !== "success"
+                    ? "cursor-not-allowed opacity-60"
+                    : ""
+                }`}
               >
-                Confirm
+                {isSubmitting ? "Posting..." : "Confirm"}
               </button>
             </div>
           ) : (
