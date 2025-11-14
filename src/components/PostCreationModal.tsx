@@ -15,8 +15,8 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
 
   useEffect(() => {
     if (flowState !== "uploading") return;
-    // const timer = setTimeout(() => setFlowState("failed"), 1700);
-    // return () => clearTimeout(timer);
+    const timer = setTimeout(() => setFlowState("failed"), 1700);
+    return () => clearTimeout(timer);
   }, [flowState]);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
   const containerWidth =
     flowState === "completed" ? "max-w-[640px]" : "max-w-[560px]";
   const paddingClasses =
-    flowState === "completed" ? "px-12 py-16" : "px-10 py-12";
+    flowState === "completed" ? "px-12 py-20" : "px-12 py-14";
 
   const handleRetry = () => setFlowState("success");
   const handleConfirm = () => {
@@ -55,7 +55,7 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
           <div className="flex items-center justify-between text-sm font-semibold text-[#1c1735]">
             <span>Loading image 60%</span>
           </div>
-          <div className="mt-3 h-2.5 w-full overflow-hidden border border-black bg-white/40">
+          <div className="mt-2 h-2.5 w-full overflow-hidden bg-muted">
             <div
               className="h-full bg-black transition-[width] duration-300 ease-out"
               style={{ width: "60%" }}
@@ -121,12 +121,12 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
           aria-hidden="true"
         />
         <div
-          className={`relative pt-16 border-3 border-black bg-background-yellow text-[#1b1434] shadow-[6px_6px_0_#000] ${paddingClasses}`}
+          className={`relative pt-20 border-3 border-black bg-background-yellow text-[#1b1434] shadow-[6px_6px_0_#000] ${paddingClasses}`}
         >
           <button
             type="button"
             aria-label="Close modal"
-            className="absolute right-8 top-8 transition hover:scale-105"
+            className="absolute right-8 top-6 mt-4 mr-3 transition hover:scale-105"
             onClick={handleCancel}
           >
             <Image
@@ -144,30 +144,30 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
                 <h2 className="text-3xl font-medium text-[#240F35]">
                   Upload your post
                 </h2>
-                <p className="mt-3 text-sm text-[#1c1735]/80">
+                <p className="mt-2 max-w-88 text-sm text-extra-muted">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                   Suspendisse commodo libero.
                 </p>
               </div>
 
-              <div className="w-full max-w-[380px]">
+              <div className="w-full max-w-[330px]">
                 <input
                   type="text"
                   value={title}
                   onChange={(event) => setTitle(event.target.value)}
                   placeholder="Post Title"
-                  className="w-full border-2 border-black bg-white px-4 py-3 text-base font-medium text-[#1c1735] outline-none focus:ring-2 focus:ring-black"
+                  className="w-full border-2 border-black bg-white px-4 py-3 text-base font-medium text-[#1c1735] outline-none focus:ring-1 focus:ring-black"
                 />
               </div>
 
-              <div className="w-full max-w-[380px]">
+              <div className="w-full max-w-[330px]">
                 {renderProgressContent()}
               </div>
 
               <button
                 type="button"
                 onClick={handleConfirm}
-                className="mt-2 w-40 cursor-pointer bg-black px-6 py-3 text-base font-semibold text-white transition hover:scale-[1.01]"
+                className="mt-2 w-30 cursor-pointer bg-black px-6 py-3 text-base font-semibold text-white transition hover:scale-[1.01]"
               >
                 Confirm
               </button>
