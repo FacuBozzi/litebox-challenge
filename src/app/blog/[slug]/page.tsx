@@ -200,7 +200,7 @@ export default async function BlogArticle({
         </div>
       </div>
 
-      <div className="mt-10 space-y-10">
+      <div className="-mt-10 space-y-10">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px]">
           <article className="space-y-10" id="article-content">
             <div className="space-y-6">
