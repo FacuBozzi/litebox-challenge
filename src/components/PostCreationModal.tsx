@@ -9,6 +9,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { fetchRelatedPostsPayload } from "@/lib/relatedPosts";
 
 type FlowState = "selecting" | "uploading" | "failed" | "success" | "completed";
 
@@ -57,14 +58,7 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
 
   const refreshRelatedPosts = useCallback(async () => {
     try {
-      const response = await fetch(`${apiHost}/api/posts/related`, {
-        method: "GET",
-        cache: "no-store",
-      });
-      if (!response.ok) {
-        throw new Error(`Failed to refresh related posts (${response.status})`);
-      }
-      const payload = await response.json();
+      const payload = await fetchRelatedPostsPayload(apiHost);
       if (typeof window !== "undefined") {
         window.dispatchEvent(
           new CustomEvent("related-posts:updated", { detail: payload }),

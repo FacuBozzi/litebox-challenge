@@ -4,11 +4,13 @@ import { notFound } from "next/navigation";
 import ReactMarkdown, { type Components } from "react-markdown";
 import { MostViewed } from "@/components/MostViewed";
 import { getApiConfig, fetchPosts } from "@/lib/api";
+import { fetchRelatedPosts } from "@/lib/relatedPosts";
 import {
   mapPostsToMostViewedItems,
   fallbackMostViewedItems,
 } from "@/lib/mostViewed";
 import type { PostEntity } from "@/types/posts";
+import type { RelatedPost } from "@/types/relatedPosts";
 import { matchesPostSlug } from "@/lib/posts";
 
 const ARTICLE_BODY = `# Curabitur sit amet sapien at velit fringilla tincidunt porttitor eget lacus. Sed mauris libero, malesuada et venenatis vitae, porta ac enim.
@@ -183,6 +185,14 @@ export default async function BlogArticle({
       ? mapPostsToMostViewedItems(mostViewedPosts, normalizedBaseUrl)
       : fallbackMostViewedItems;
 
+  let relatedPosts: RelatedPost[] = [];
+  try {
+    relatedPosts = await fetchRelatedPosts(normalizedHost);
+  } catch (error) {
+    console.error("Failed to fetch related posts for article", error);
+  }
+  const hasRelatedPosts = relatedPosts.length > 0;
+
   return (
     <>
       <div className="fixed inset-0 -z-10 bg-white" aria-hidden="true" />
@@ -247,6 +257,12 @@ export default async function BlogArticle({
 
           <MostViewed items={mostViewedItems} lightMode />
         </div>
+
+        {hasRelatedPosts ? (
+          <section className="pt-10">
+            <p className="text-2xl font-semibold text-black">Related posts</p>
+          </section>
+        ) : null}
       </div>
     </>
   );
