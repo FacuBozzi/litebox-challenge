@@ -28,7 +28,7 @@
 
 body {
     min-height: 100vh;
-    background-color: #030304;
+    background-color: black;
     color: #f4f4f5;
     font-family:
         var(--font-space-grotesk),
