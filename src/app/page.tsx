@@ -1,5 +1,6 @@
 import { ArrowIcon } from "@/components/ArrowIcon";
 import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 import Image from "next/image";
 import { Fragment } from "react";
 
@@ -583,6 +584,7 @@ export default async function Home() {
           </div>
         </section>
       </div>
+      <Footer />
     </div>
   );
 }
