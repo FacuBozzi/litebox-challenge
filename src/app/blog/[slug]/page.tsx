@@ -188,14 +188,17 @@ export default async function BlogArticle({
     <>
       <div className="fixed inset-0 -z-10 bg-white" aria-hidden="true" />
       <div className="relative w-screen" style={heroWrapperStyles}>
-        <div className="relative h-[700px] w-full overflow-hidden">
+        <div className="relative h-[520px] w-full overflow-hidden md:h-[700px]">
           <div
             className="absolute inset-0"
             style={{ background: heroBackground }}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/20 to-black/60" />
-          <div className="relative z-10 mx-auto flex flex-col h-full w-full max-w-6xl justify-center px-4 sm:px-8">
-            <Link href="/" className="flex w-fit gap-2 mb-5 text-white">
+          <div className="relative z-10 mx-auto flex h-full w-full max-w-6xl flex-col justify-end px-4 sm:px-8 md:justify-center">
+            <Link
+              href="/"
+              className="mb-4 flex w-full px-6 md:px-0 gap-2 text-white md:mb-5"
+            >
               <Image
                 src="/arrows/left-arrow.svg"
                 width={20}
@@ -204,8 +207,8 @@ export default async function BlogArticle({
               />
               <p className="font-semibold">Blog</p>
             </Link>
-            <div className="relative w-full max-w-[500px] text-white">
-              <div className="flex w-fit items-end h-16 bg-white px-6">
+            <div className="relative mx-auto w-full max-w-[460px] px-6 sm:pl-0 sm:pr-0 md:mx-0 md:max-w-[500px] md:pl-0">
+              <div className="inline-flex h-12 w-fit items-end justify-center bg-white px-6 md:h-16">
                 <div className="inline-flex items-center gap-4">
                   <Image
                     src="/authors/avatar-photo.png"
@@ -214,17 +217,17 @@ export default async function BlogArticle({
                     height={48}
                     className="h-10 w-10 rounded-full object-cover"
                   />
-                  <span className="text-lg font-normal text-extra-muted">
+                  <span className="text-sm font-semibold text-extra-muted md:text-lg md:font-normal">
                     By {authorName}
                   </span>
                 </div>
               </div>
-              <div className="flex w-123 -mt-px flex-col bg-white px-6 py-6">
-                <h1 className="text-3xl text-black font-semibold leading-tight md:text-4xl">
+              <div className="flex w-full flex-col bg-white px-6 py-5 text-black -mt-2 md:w-123 md:px-6 md:py-6">
+                <h1 className="text-3xl font-semibold leading-tight text-black md:text-4xl">
                   {attrs.title ?? "Untitled Post"}
                 </h1>
                 <div className="mt-3 flex flex-wrap items-center justify-between gap-4">
-                  <div className="flex items-center gap-2 pr-6 text-sm font-normal text-extra-muted">
+                  <div className="flex items-center gap-2 text-sm font-normal text-extra-muted md:pr-6">
                     <FileIcon />
                     {formatReadTime(attrs.readTime ?? undefined)}
                   </div>
