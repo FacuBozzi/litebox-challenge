@@ -37,7 +37,7 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
   const containerWidth =
     flowState === "completed" ? "max-w-[640px]" : "max-w-[560px]";
   const paddingClasses =
-    flowState === "completed" ? "px-12 py-20" : "px-12 py-14";
+    flowState === "completed" ? "px-12 py-20 pb-10" : "px-12 py-14";
 
   const handleRetry = () => setFlowState("success");
   const handleConfirm = () => {
@@ -49,13 +49,13 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
   const handleCancel = () => onCloseAction();
 
   const renderProgressContent = () => {
+    const textClass = "text-sm text-left font-semibold text-[#1c1735]";
+
     if (flowState === "uploading") {
       return (
         <>
-          <div className="flex items-center justify-between text-sm font-semibold text-[#1c1735]">
-            <span>Loading image 60%</span>
-          </div>
-          <div className="mt-2 h-2.5 w-full overflow-hidden bg-muted">
+          <div className={textClass}>Loading image 60%</div>
+          <div className="mt-1 h-2.5 w-full overflow-hidden border border-black bg-white/40">
             <div
               className="h-full bg-black transition-[width] duration-300 ease-out"
               style={{ width: "60%" }}
@@ -65,7 +65,7 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
             <div className="mt-1 flex justify-end">
               <button
                 type="button"
-                className="text-sm font-semibold text-[#1c1735]"
+                className={textClass}
                 onClick={handleCancel}
               >
                 Cancel
@@ -79,32 +79,26 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
     if (flowState === "failed") {
       return (
         <>
-          <div className="flex items-center justify-between text-sm font-semibold text-[#1c1735]">
-            <span>Failed to upload your file</span>
-            {showRetryAction && (
-              <button
-                type="button"
-                className="text-sm font-semibold text-[#1c1735]"
-                onClick={handleRetry}
-              >
+          <div className={textClass}>Failed to upload your file</div>
+          <div className="mt-1 h-2.5 w-full bg-[#FF2F2F]" />
+          {showRetryAction && (
+            <div className="mt-1 flex justify-end">
+              <button type="button" className={textClass} onClick={handleRetry}>
                 Retry
               </button>
-            )}
-          </div>
-          <div className="mt-3 h-2.5 w-full bg-[#ff4a4a]" />
+            </div>
+          )}
         </>
       );
     }
 
     return (
       <>
-        <div className="flex items-center gap-2 text-sm font-semibold text-[#1c1735]">
+        <div className={`flex items-center gap-2 ${textClass}`}>
           <span>Upload successful</span>
-          <span aria-hidden="true" className="text-lg">
-            ✓
-          </span>
+          <Image src="misc/check.svg" width={24} height={24} alt="check" />
         </div>
-        <div className="mt-3 h-2.5 w-full bg-black" />
+        <div className="mt-1 h-2.5 w-full bg-black" />
       </>
     );
   };
@@ -174,13 +168,13 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
             </div>
           ) : (
             <div className="flex flex-col items-center gap-8 text-center">
-              <p className="max-w-sm text-3xl font-semibold leading-snug text-[#1c1735]">
+              <p className="max-w-sm text-3xl font-medium leading-snug text-[#240F35]">
                 Your post was successfully uploaded!
               </p>
               <button
                 type="button"
                 onClick={handleDone}
-                className="w-36 bg-black px-6 py-3 text-base font-semibold text-white transition hover:scale-[1.01]"
+                className="w-28 bg-black px-6 py-3 text-base font-semibold text-white transition hover:scale-[1.01]"
               >
                 Done
               </button>
