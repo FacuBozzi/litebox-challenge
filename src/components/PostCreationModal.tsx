@@ -1,17 +1,19 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { type ChangeEvent, useEffect, useRef, useState } from "react";
 
-type FlowState = "uploading" | "failed" | "success" | "completed";
+type FlowState = "selecting" | "uploading" | "failed" | "success" | "completed";
 
 type PostCreationModalProps = {
   onCloseAction: () => void;
 };
 
 export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
-  const [flowState, setFlowState] = useState<FlowState>("uploading");
+  const [flowState, setFlowState] = useState<FlowState>("selecting");
   const [title, setTitle] = useState("");
+  const [selectedFileName, setSelectedFileName] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (flowState !== "uploading") return;
@@ -48,8 +50,51 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
   const handleDone = () => onCloseAction();
   const handleCancel = () => onCloseAction();
 
+  const handleBrowseClick = () => fileInputRef.current?.click();
+
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    setSelectedFileName(file.name);
+    setFlowState("uploading");
+  };
+
   const renderProgressContent = () => {
     const textClass = "text-sm text-left font-semibold text-[#1c1735]";
+
+    if (flowState === "selecting") {
+      return (
+        <>
+          <div className="flex flex-row items-center text-center">
+            <button
+              type="button"
+              onClick={handleBrowseClick}
+              className="flex w-full max-w-[330px] gap-2 items-center justify-center border-2 border-black bg-transparent px-4 py-3 text-base font-semibold text-[#1c1735] transition hover:bg-white/40"
+            >
+              <span>Upload image</span>
+              <Image
+                src="/arrows/arrow-up.svg"
+                width={22}
+                height={22}
+                alt="arrow up"
+              />
+            </button>
+            {selectedFileName && (
+              <p className="mt-2 text-xs font-semibold text-[#1c1735]">
+                {selectedFileName}
+              </p>
+            )}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleFileChange}
+            />
+          </div>
+        </>
+      );
+    }
 
     if (flowState === "uploading") {
       return (
@@ -133,7 +178,7 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
           </button>
 
           {flowState !== "completed" ? (
-            <div className="flex flex-col items-center gap-7 text-center">
+            <div className="flex flex-col items-center gap-6 text-center">
               <div>
                 <h2 className="text-3xl font-medium text-[#240F35]">
                   Upload your post
