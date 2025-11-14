@@ -31,7 +31,7 @@ export function Navbar() {
           <ArrowIcon className="h-6 w-6" />
         </button>
       </header>
-      {isModalOpen ? <PostCreationModal onClose={closeModal} /> : null}
+      {isModalOpen ? <PostCreationModal onCloseAction={closeModal} /> : null}
     </>
   );
 }

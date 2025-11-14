@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 type FlowState = "uploading" | "failed" | "success" | "completed";
@@ -14,8 +15,8 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
 
   useEffect(() => {
     if (flowState !== "uploading") return;
-    const timer = setTimeout(() => setFlowState("failed"), 1700);
-    return () => clearTimeout(timer);
+    // const timer = setTimeout(() => setFlowState("failed"), 1700);
+    // return () => clearTimeout(timer);
   }, [flowState]);
 
   useEffect(() => {
@@ -53,15 +54,6 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
         <>
           <div className="flex items-center justify-between text-sm font-semibold text-[#1c1735]">
             <span>Loading image 60%</span>
-            {showCancelAction && (
-              <button
-                type="button"
-                className="text-sm font-semibold text-[#1c1735]"
-                onClick={handleCancel}
-              >
-                Cancel
-              </button>
-            )}
           </div>
           <div className="mt-3 h-2.5 w-full overflow-hidden border border-black bg-white/40">
             <div
@@ -69,6 +61,17 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
               style={{ width: "60%" }}
             />
           </div>
+          {showCancelAction && (
+            <div className="mt-1 flex justify-end">
+              <button
+                type="button"
+                className="text-sm font-semibold text-[#1c1735]"
+                onClick={handleCancel}
+              >
+                Cancel
+              </button>
+            </div>
+          )}
         </>
       );
     }
@@ -114,25 +117,31 @@ export function PostCreationModal({ onCloseAction }: PostCreationModalProps) {
     >
       <div className={`relative w-full ${containerWidth}`}>
         <div
-          className="absolute inset-0 translate-x-3 translate-y-3 border-2 border-black bg-black"
+          className="absolute inset-0 translate-x-2 translate-y-2 border-2 border-black bg-black"
           aria-hidden="true"
         />
         <div
-          className={`relative border-3 border-black bg-background-yellow text-[#1b1434] shadow-[10px_12px_0_#000] ${paddingClasses}`}
+          className={`relative pt-16 border-3 border-black bg-background-yellow text-[#1b1434] shadow-[6px_6px_0_#000] ${paddingClasses}`}
         >
           <button
             type="button"
             aria-label="Close modal"
-            className="absolute right-8 top-8 text-3xl leading-none text-black transition hover:scale-105"
+            className="absolute right-8 top-8 transition hover:scale-105"
             onClick={handleCancel}
           >
-            ×
+            <Image
+              src="misc/close-icon.svg"
+              width={40}
+              height={40}
+              onClick={handleCancel}
+              alt="close icon"
+            />
           </button>
 
           {flowState !== "completed" ? (
             <div className="flex flex-col items-center gap-7 text-center">
               <div>
-                <h2 className="text-3xl font-semibold text-[#1c1735]">
+                <h2 className="text-3xl font-medium text-[#240F35]">
                   Upload your post
                 </h2>
                 <p className="mt-3 text-sm text-[#1c1735]/80">
