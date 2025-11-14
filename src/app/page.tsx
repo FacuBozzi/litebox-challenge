@@ -14,7 +14,7 @@ const topics = [
   { label: "Leaks" },
 ];
 
-const heroStory = {
+const fallbackHeroStory = {
   category: "Diversity & Inclusion",
   title: "Your Kid May Already Be Watching AI-Generated Videos on YouTube",
   summary:
@@ -76,34 +76,171 @@ const fallbackBackgrounds = [
   "radial-gradient(circle at 15% 15%, rgba(195,255,60,0.35), transparent 40%), radial-gradient(circle at 75% 35%, rgba(255,131,208,0.3), transparent 40%), linear-gradient(135deg, rgba(28,28,28,0.95), rgba(18,18,18,0.85))",
 ];
 
-const mostViewed = [
+const fallbackStoryCards: StoryCard[] = [
+  {
+    id: "studio-breakfast",
+    category: "Tech companies",
+    title:
+      "Inside the studios reinventing corporate all-hands as immersive broadcasts",
+    excerpt:
+      "Lite Labs built a game-engine powered stage for founders to launch products straight to their employee base without rehearsals.",
+    readTime: "5 mins",
+    accent: "var(--color-background-yellow)",
+    background: fallbackBackgrounds[0],
+    layout: "md:row-span-2 md:min-h-[420px] lg:min-h-[520px]",
+    contentAlignment: "end",
+    labelHeightClass: "h-11",
+  },
+  {
+    id: "crypto-crime",
+    category: "Crypto",
+    title:
+      "Binance’s top crypto crime investigator is being detained in Nigeria",
+    excerpt:
+      "Nigeria’s EFCC alleges policy violations as the exchange fights a $10B penalty.",
+    readTime: "6 mins",
+    accent: "#a4f6ff",
+    background: fallbackBackgrounds[1],
+    labelHeightClass: "h-12",
+  },
+  {
+    id: "signal-room",
+    category: "Security",
+    title: "The war room where ethical hackers rehearse global ransom drills",
+    excerpt:
+      "Shadow rehearsals every week are helping airports build muscle-memory when the alarms go dark.",
+    readTime: "8 mins",
+    accent: "#bda6ff",
+    background: fallbackBackgrounds[2],
+    labelHeightClass: "h-12",
+  },
+  {
+    id: "founder-hangout",
+    category: "Tech companies",
+    title:
+      "A stealth startup wants founders to treat LinkedIn like late-night TV",
+    excerpt:
+      "Litewave is paying on-air hosts to remix product launches into personality-driven talk shows.",
+    readTime: "4 mins",
+    accent: "var(--color-background-yellow)",
+    background: fallbackBackgrounds[3],
+    labelHeightClass: "h-12",
+  },
+  {
+    id: "studio-breakfast2",
+    category: "Tech companies",
+    title:
+      "Inside the studios reinventing corporate all-hands as immersive broadcasts",
+    excerpt:
+      "Lite Labs built a game-engine powered stage for founders to launch products straight to their employee base without rehearsals.",
+    readTime: "5 mins",
+    accent: "var(--color-background-yellow)",
+    background: fallbackBackgrounds[0],
+    layout: "md:row-span-2 md:min-h-[420px] lg:min-h-[520px]",
+    contentAlignment: "end",
+    labelHeightClass: "h-11",
+  },
+  {
+    id: "crypto-crime2",
+    category: "Crypto",
+    title:
+      "Binance’s top crypto crime investigator is being detained in Nigeria",
+    excerpt:
+      "Nigeria’s EFCC alleges policy violations as the exchange fights a $10B penalty.",
+    readTime: "6 mins",
+    accent: "#a4f6ff",
+    background: fallbackBackgrounds[1],
+    labelHeightClass: "h-12",
+  },
+  {
+    id: "signal-room2",
+    category: "Security",
+    title: "The war room where ethical hackers rehearse global ransom drills",
+    excerpt:
+      "Shadow rehearsals every week are helping airports build muscle-memory when the alarms go dark.",
+    readTime: "8 mins",
+    accent: "#bda6ff",
+    background: fallbackBackgrounds[2],
+    labelHeightClass: "h-12",
+  },
+  {
+    id: "founder-hangout2",
+    category: "Tech companies",
+    title:
+      "A stealth startup wants founders to treat LinkedIn like late-night TV",
+    excerpt:
+      "Litewave is paying on-air hosts to remix product launches into personality-driven talk shows.",
+    readTime: "4 mins",
+    accent: "var(--color-background-yellow)",
+    background: fallbackBackgrounds[3],
+    labelHeightClass: "h-12",
+  },
+  {
+    id: "founder-hangout3",
+    category: "Tech companies",
+    title:
+      "A stealth startup wants founders to treat LinkedIn like late-night TV",
+    excerpt:
+      "Litewave is paying on-air hosts to remix product launches into personality-driven talk shows.",
+    readTime: "4 mins",
+    accent: "var(--color-background-yellow)",
+    background: fallbackBackgrounds[3],
+    labelHeightClass: "h-12",
+  },
+];
+
+const formatReadTime = (value?: number, fallback = "— mins") =>
+  typeof value === "number" && Number.isFinite(value)
+    ? `${value} mins`
+    : fallback;
+
+const fallbackMostViewedSeeds = [
   {
     title: "Your TV Sounds Awful. These Soundbars Can Fix That",
-    meta: "Gear • 9 mins",
+    topic: "Gear",
+    readTime: 9,
     accent:
       "radial-gradient(circle at 20% 20%, rgba(255,196,241,0.5), transparent 60%), linear-gradient(135deg, #e000ff, #7700ff)",
   },
   {
     title: "The Small Company at the Center of 'Gamergate 2.0'",
-    meta: "Culture • 7 mins",
+    topic: "Culture",
+    readTime: 7,
     accent:
       "radial-gradient(circle at 70% 20%, rgba(255,210,136,0.6), transparent 55%), linear-gradient(135deg, #ff7a18, #ff0057)",
   },
   {
     title:
       "Craig Wright Is Not Bitcoin Creator Satoshi Nakamoto, Judge Declares",
-    meta: "Courts • 5 mins",
+    topic: "Courts",
+    readTime: 5,
     accent:
       "radial-gradient(circle at 20% 80%, rgba(182,208,255,0.55), transparent 50%), linear-gradient(135deg, #2f68ff, #11152b)",
   },
   {
     title:
       "Robert F. Kennedy Jr. Targets a Generation of Politically Disaffected, Extremely Online Men",
-    meta: "Politics • 12 mins",
+    topic: "Politics",
+    readTime: 12,
     accent:
       "radial-gradient(circle at 50% 30%, rgba(255,255,255,0.35), transparent 60%), linear-gradient(135deg, #ffef9f, #f0941f)",
   },
 ];
+
+const fallbackMostViewedPosts: PostEntity[] = fallbackMostViewedSeeds.map(
+  (seed, index) => ({
+    id: 1000 + index,
+    attributes: {
+      title: seed.title,
+      topic: seed.topic,
+      readTime: seed.readTime,
+    },
+  }),
+);
+
+const fallbackMostViewedAccents = fallbackMostViewedSeeds.map(
+  (seed) => seed.accent,
+);
 
 const FileIcon = ({ className = "w-5 h-5" }: { className?: string } = {}) => (
   <Image
@@ -148,34 +285,60 @@ export default async function Home() {
     console.error("Failed to fetch posts", error);
   }
 
-  const storyCards: StoryCard[] = postsData.map((post, index) => {
-    const attrs = post.attributes ?? {};
-    const coverUrl = attrs.coverImg?.data?.attributes?.url;
-    const background = coverUrl
-      ? `url(${normalizedBaseUrl}${coverUrl}) center center / cover no-repeat`
-      : fallbackBackgrounds[index % fallbackBackgrounds.length];
-    const isFeature = index % 3 === 0;
+  const heroPost = postsData[0];
+  const heroAttributes = heroPost?.attributes ?? {};
+  const heroCoverUrl = heroAttributes.coverImg?.data?.attributes?.url;
+  const heroStory = heroPost
+    ? {
+        category: heroAttributes.topic ?? fallbackHeroStory.category,
+        title: heroAttributes.title ?? fallbackHeroStory.title,
+        summary: heroAttributes.subtitle ?? fallbackHeroStory.summary,
+        readTime: formatReadTime(
+          heroAttributes.readTime,
+          fallbackHeroStory.readTime,
+        ),
+        background: heroCoverUrl
+          ? `url(${normalizedBaseUrl}${heroCoverUrl}) center center / cover no-repeat`
+          : fallbackHeroStory.background,
+      }
+    : fallbackHeroStory;
 
-    return {
-      id: String(post.id),
-      category: attrs.topic ?? "General",
-      title: attrs.title ?? "Untitled Post",
-      excerpt: attrs.subtitle ?? "",
-      readTime: attrs.readTime ? `${attrs.readTime} mins` : "—",
-      accent: "var(--color-background-yellow)",
-      background,
-      layout: isFeature
-        ? "md:row-span-2 md:min-h-[420px] lg:min-h-[520px]"
-        : undefined,
-      contentAlignment: isFeature ? "end" : undefined,
-      labelHeightClass: isFeature ? "h-11" : "h-12",
-    };
-  });
+  const storyPosts = postsData.slice(1, 10);
+  const storyCards: StoryCard[] =
+    storyPosts.length > 0
+      ? storyPosts.map((post, index) => {
+          const attrs = post.attributes ?? {};
+          const coverUrl = attrs.coverImg?.data?.attributes?.url;
+          const background = coverUrl
+            ? `url(${normalizedBaseUrl}${coverUrl}) center center / cover no-repeat`
+            : fallbackBackgrounds[index % fallbackBackgrounds.length];
+          const isFeature = index % 3 === 0;
+
+          return {
+            id: String(post.id),
+            category: attrs.topic ?? "General",
+            title: attrs.title ?? "Untitled Post",
+            excerpt: attrs.subtitle ?? "",
+            readTime: formatReadTime(attrs.readTime, "— mins"),
+            accent: "var(--color-background-yellow)",
+            background,
+            layout: isFeature
+              ? "md:row-span-2 md:min-h-[420px] lg:min-h-[520px]"
+              : undefined,
+            contentAlignment: isFeature ? "end" : undefined,
+            labelHeightClass: isFeature ? "h-11" : "h-12",
+          };
+        })
+      : fallbackStoryCards;
 
   const storyGroups: StoryCard[][] = [];
   for (let i = 0; i < storyCards.length; i += 3) {
     storyGroups.push(storyCards.slice(i, i + 3));
   }
+
+  const mostViewedPosts = postsData.slice(10, 14);
+  const mostViewedEntities =
+    mostViewedPosts.length > 0 ? mostViewedPosts : fallbackMostViewedPosts;
 
   const NewsletterBanner = () => (
     <div className="border border-white/10 bg-purple px-4 py-8 text-white sm:flex sm:items-center sm:justify-between sm:gap-6 md:px-10 md:py-9">
@@ -389,22 +552,32 @@ export default async function Home() {
             <aside className="w-full">
               <h2 className="text-md font-semibold text-white">Most viewed</h2>
               <div className="mt-4 space-y-3">
-                {mostViewed.map((item) => (
-                  <article
-                    key={item.title}
-                    className="flex gap-2 border-b border-extra-muted pb-3"
-                  >
-                    <div className="space-y-2">
-                      <p className="text-sm font-semibold leading-snug text-muted">
-                        {item.title}
-                      </p>
-                    </div>
-                    <div
-                      className="h-19 w-19 shrink-0"
-                      style={{ background: item.accent }}
-                    />
-                  </article>
-                ))}
+                {mostViewedEntities.map((post, index) => {
+                  const attrs = post.attributes ?? {};
+                  const coverUrl = attrs.coverImg?.data?.attributes?.url;
+                  const background = coverUrl
+                    ? `url(${normalizedBaseUrl}${coverUrl}) center center / cover no-repeat`
+                    : fallbackMostViewedAccents[
+                        index % fallbackMostViewedAccents.length
+                      ];
+
+                  return (
+                    <article
+                      key={`${post.id}-${attrs.title ?? "most-viewed"}`}
+                      className="flex justify-between gap-2 border-b border-extra-muted pb-3"
+                    >
+                      <div className="space-y-2">
+                        <p className="text-sm font-semibold leading-snug text-muted">
+                          {attrs.title ?? "Untitled Post"}
+                        </p>
+                      </div>
+                      <div
+                        className="h-19 w-19 shrink-0"
+                        style={{ background }}
+                      />
+                    </article>
+                  );
+                })}
               </div>
             </aside>
           </div>
