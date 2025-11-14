@@ -63,6 +63,12 @@ button:disabled {
     overflow: hidden;
 }
 
+@media (max-width: 767px) {
+    .story-card-mobile-tall {
+        min-height: 360px;
+    }
+}
+
 .bg-purple {
     background-color: var(--color-purple);
 }
