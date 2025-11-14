@@ -18,7 +18,7 @@ export function StoriesSection({
   return (
     <section className="space-y-6">
       <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,1fr)_270px]">
-        <div className="mb-40 flex flex-col gap-12">
+        <div className="sm:mb-40 mb-12 flex flex-col gap-12">
           {storyGroups.map((group, groupIndex) => {
             if (group.length === 0) return null;
 
@@ -75,7 +75,9 @@ export function StoriesSection({
           </button>
         </div>
 
-        <MostViewed heading={mostViewedHeading} items={mostViewedItems} />
+        <div className="hidden lg:block">
+          <MostViewed heading={mostViewedHeading} items={mostViewedItems} />
+        </div>
       </div>
     </section>
   );
