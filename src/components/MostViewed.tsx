@@ -10,16 +10,22 @@ export type MostViewedItem = {
 type MostViewedProps = {
   heading?: string;
   items: MostViewedItem[];
+  lightMode?: boolean;
 };
 
 export function MostViewed({
   heading = "Most viewed",
   items,
+  lightMode = false,
 }: MostViewedProps) {
   return (
     <aside className="w-full">
-      <h2 className="text-md font-semibold text-white">{heading}</h2>
-      <div className="mt-4 space-y-3">
+      <h2
+        className={`text-md font-semibold ${lightMode ? "text-black" : "text-white"}`}
+      >
+        {heading}
+      </h2>
+      <div className="mt-6 space-y-3">
         {items.map((item) => {
           const content = (
             <>

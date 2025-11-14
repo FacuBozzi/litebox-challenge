@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ReactMarkdown, { type Components } from "react-markdown";
-import { ArrowIcon } from "@/components/ArrowIcon";
 import { MostViewed } from "@/components/MostViewed";
 import { getApiConfig, fetchPosts } from "@/lib/api";
 import {
@@ -12,8 +11,9 @@ import {
 import type { PostEntity } from "@/types/posts";
 import { matchesPostSlug } from "@/lib/posts";
 
-const ARTICLE_BODY = `# Curabitur sit amet sapien at velit fringilla tincidunt porttitor eget lacus. Sed mauris libero,
-malesuada et venenatis vitae, porta ac enim. Curabitur sit amet sapien at velit fringilla
+const ARTICLE_BODY = `# Curabitur sit amet sapien at velit fringilla tincidunt porttitor eget lacus. Sed mauris libero, malesuada et venenatis vitae, porta ac enim.
+
+  Curabitur sit amet sapien at velit fringilla
 tincidunt porttitor eget lacus. Sed mauris libero, malesuada et venenatis vitae, porta ac enim.
 Aliquam erat volutpat. Cras tristique eleifend dolor, et ultricies nisl feugiat sed. Pellentesque
 blandit orci eu velit vehicula commodo. Phasellus imperdiet finibus ex eget gravida. Maecenas
@@ -36,6 +36,7 @@ elit nisi placerat neque, vitae facilisis massa sapien a mi. Fusce sit amet blan
 blog](https://litetech-assets.s3.us-east-2.amazonaws.com/Image2.png)
 
 > Commodo eget mi. In orci nunc, laoreet eleifend sem vel, suscipitlon lorem ipsum
+
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vel sem in nunc porttitor dapibus a sollicitudin nunc. Sed lacinia nisl a magna congue, maximus tristique tellus finibus.
 
 # Nullam tristique tellus purus Maecenas iaculis et dolor ac laoreet. Curabitur placerat porta
@@ -52,19 +53,6 @@ const formatReadTime = (value?: number, fallback = "— mins read") =>
     ? `${value} mins read`
     : fallback;
 
-const formatDate = (value?: string | null) => {
-  if (!value) return "—";
-  try {
-    return new Intl.DateTimeFormat("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    }).format(new Date(value));
-  } catch {
-    return "—";
-  }
-};
-
 const FileIcon = ({ className = "h-4 w-4" }: { className?: string }) => (
   <Image
     src="/misc/file-icon.svg"
@@ -77,12 +65,14 @@ const FileIcon = ({ className = "h-4 w-4" }: { className?: string }) => (
 
 const markdownComponents: Components = {
   h1: ({ children }) => (
-    <h2 className="mt-10 text-3xl font-semibold leading-tight text-white first:mt-0">
+    <h2 className="mt-10 text-2xl font-semibold leading-tight text-black first:mt-0">
       {children}
     </h2>
   ),
   p: ({ children }) => (
-    <p className="mt-4 text-base leading-relaxed text-white/90">{children}</p>
+    <p className="mt-4 text-base leading-relaxed text-extra-muted">
+      {children}
+    </p>
   ),
   img: ({ alt, src }) => (
     // eslint-disable-next-line @next/next/no-img-element
@@ -94,7 +84,7 @@ const markdownComponents: Components = {
     />
   ),
   blockquote: ({ children }) => (
-    <blockquote className="my-8 border-l-4 border-background-yellow bg-white/5 p-6 text-lg italic text-white">
+    <blockquote className="my-8 border-l-4 border-background-yellow bg-white/5 p-6 [&_p]:text-xl! [&_p]:mt-0! [&_p]:text-black! font-bold text-white">
       {children}
     </blockquote>
   ),
@@ -161,6 +151,7 @@ export default async function BlogArticle({
 
   return (
     <>
+      <div className="fixed inset-0 -z-10 bg-white" aria-hidden="true" />
       <div className="relative w-screen" style={heroWrapperStyles}>
         <div className="relative h-[700px] w-full overflow-hidden">
           <div
@@ -219,7 +210,7 @@ export default async function BlogArticle({
             </div>
           </article>
 
-          <MostViewed heading="Related headlines" items={mostViewedItems} />
+          <MostViewed items={mostViewedItems} lightMode />
         </div>
       </div>
     </>
