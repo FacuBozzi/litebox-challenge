@@ -39,6 +39,14 @@ body {
         sans-serif;
 }
 
+button {
+    cursor: pointer;
+}
+
+button:disabled {
+    cursor: not-allowed;
+}
+
 /* ✅ Use your new theme variable for selection */
 ::selection {
     background-color: var(--color-background-yellow);
