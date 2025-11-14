@@ -72,9 +72,7 @@ const ReadAction = ({
   children: ReactNode;
 }) =>
   slug ? (
-    <Link href={`/blog/${slug}`} className={className}>
-      {children}
-    </Link>
+    <button className={className}>{children}</button>
   ) : (
     <span className={`${className} cursor-not-allowed opacity-60`}>
       {children}
