@@ -1,5 +1,11 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Architecture Notes
+
+- The landing page (`src/app/page.tsx`) is a Server Component (`"use client"` is absent) so it renders on the server.
+- During that render the `Home` function invokes `fetch(`${process.env.LITE_TECH_API_HOST}/api/posts?limit=14`, { cache: "no-store" })`, pulling the latest posts on the server before hydrating the client.
+- Because the data is loaded server-side, users see fresh content on first paint and we avoid exposing backend credentials to the browser.
+
 ## Getting Started
 
 First, run the development server:
