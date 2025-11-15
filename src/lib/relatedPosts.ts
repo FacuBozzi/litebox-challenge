@@ -1,3 +1,4 @@
+import { getFetchCacheOptions } from "@/lib/api";
 import type { RelatedPost } from "@/types/relatedPosts";
 
 const RELATED_POSTS_ENDPOINT = "/api/posts/related";
@@ -7,7 +8,7 @@ export const fetchRelatedPostsPayload = async (
 ): Promise<RelatedPost[]> => {
   const response = await fetch(`${host}${RELATED_POSTS_ENDPOINT}`, {
     method: "GET",
-    cache: "no-store",
+    ...getFetchCacheOptions(),
   });
 
   if (!response.ok) {

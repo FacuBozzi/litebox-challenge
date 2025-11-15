@@ -7,6 +7,36 @@ export type ApiConfig = {
   host: string;
 };
 
+const FALLBACK_REVALIDATE_SECONDS = 300;
+
+const resolveRevalidateSeconds = (): number => {
+  const rawValue = process.env.LITE_TECH_REVALIDATE_SECONDS;
+  if (!rawValue) {
+    return FALLBACK_REVALIDATE_SECONDS;
+  }
+
+  const parsedValue = Number(rawValue);
+  if (!Number.isFinite(parsedValue) || parsedValue < 0) {
+    return FALLBACK_REVALIDATE_SECONDS;
+  }
+
+  return parsedValue;
+};
+
+const REVALIDATE_SECONDS = resolveRevalidateSeconds();
+
+type FetchCacheOptions = {
+  cache?: RequestCache;
+  next?: {
+    revalidate?: number;
+  };
+};
+
+export const getFetchCacheOptions = (): FetchCacheOptions =>
+  REVALIDATE_SECONDS === 0
+    ? { cache: "no-store" }
+    : { next: { revalidate: REVALIDATE_SECONDS } };
+
 export const getApiConfig = (): ApiConfig => {
   const apiBaseUrl = process.env.LITE_TECH_API_BASE_URL;
   const apiHost = process.env.LITE_TECH_API_HOST;
@@ -34,7 +64,7 @@ export const fetchPosts = async (
   limit = 14,
 ): Promise<PostEntity[]> => {
   const response = await fetch(`${host}/api/posts?limit=${limit}`, {
-    cache: "no-store",
+    ...getFetchCacheOptions(),
   });
 
   if (!response.ok) {
