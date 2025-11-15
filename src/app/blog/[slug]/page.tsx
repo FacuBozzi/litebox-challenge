@@ -107,7 +107,7 @@ const markdownComponents: Components = {
     <img
       src={src ?? ""}
       alt={alt ?? ""}
-      className="my-16 w-full rounded-xl border border-white/10 bg-black/40 object-cover"
+      className="my-16 w-full border border-white/10 bg-black/40 object-cover"
       loading="lazy"
     />
   ),
