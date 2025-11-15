@@ -18,7 +18,8 @@ type PostCreationModalProps = {
 };
 
 const resolveApiHost = () => {
-  const host = process.env.LITE_TECH_API_HOST ?? "http://localhost:8080";
+  const host =
+    process.env.NEXT_PUBLIC_LITE_TECH_API_HOST ?? "http://localhost:8080";
   return host.replace(/\/$/, "");
 };
 
