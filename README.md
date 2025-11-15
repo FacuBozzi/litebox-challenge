@@ -13,6 +13,12 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 The layout was designed desktop-first following the original Figma spec, and then we added explicit adjustments for small/mobile screens so key flows (hero, topics, story grid, modal) remain usable. I did not spend time perfecting tablet or "in-between" breakpoints due to the short challenge window (and I was busy with other challenges this week), so expect the best fidelity on large screens.
 
+## TODO
+
+- Improve mobile responsiveness, especially StoryCards and the hero section, so layouts stay balanced in smaller breakpoints.
+- Increase horizontal padding on mobile screens throughout the home page.
+- Polish the remaining visual details to reach pixel-perfect parity with the design.
+
 ## Getting Started
 
 First, run the development server:
