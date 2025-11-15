@@ -1,14 +1,14 @@
-import { getFetchCacheOptions } from "@/lib/api";
 import type { RelatedPost } from "@/types/relatedPosts";
 
 const RELATED_POSTS_ENDPOINT = "/api/posts/related";
+const NO_CACHE_OPTIONS = { cache: "no-store" } as const;
 
 export const fetchRelatedPostsPayload = async (
   host: string,
 ): Promise<RelatedPost[]> => {
   const response = await fetch(`${host}${RELATED_POSTS_ENDPOINT}`, {
     method: "GET",
-    ...getFetchCacheOptions(),
+    ...NO_CACHE_OPTIONS,
   });
 
   if (!response.ok) {
