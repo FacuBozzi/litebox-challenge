@@ -240,8 +240,13 @@ export default async function BlogArticle({
 
       <div className="-mt-10 space-y-10">
         <div className="grid gap-10 lg:grid-cols-[220px_minmax(0,1fr)_280px]">
-          <SocialMediaSection />
-          <article className="space-y-10" id="article-content">
+          <div className="order-2 lg:order-none">
+            <SocialMediaSection />
+          </div>
+          <article
+            className="order-1 space-y-10 lg:order-none"
+            id="article-content"
+          >
             <div className="space-y-6">
               <ReactMarkdown components={markdownComponents}>
                 {ARTICLE_BODY}
@@ -249,7 +254,9 @@ export default async function BlogArticle({
             </div>
           </article>
 
-          <MostViewed items={mostViewedItems} lightMode />
+          <div className="order-3 hidden lg:order-none lg:block">
+            <MostViewed items={mostViewedItems} lightMode />
+          </div>
         </div>
 
         <RelatedPostsSection

@@ -81,9 +81,52 @@ const ReadAction = ({
     </span>
   );
 
+const RelatedStoryCardMobile = ({ card }: { card: RelatedStoryCardData }) => (
+  <article
+    className="story-card-mobile-tall relative flex min-h-[320px] w-[280px] shrink-0 items-end overflow-hidden border border-white/10 px-4 transition-transform duration-300 ease-out"
+    style={{
+      backgroundImage: card.backgroundImage,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+    }}
+  >
+    <div className="absolute inset-0 opacity-40 mix-blend-screen bg-[repeating-linear-gradient(45deg,_rgba(255,255,255,0.05)_0,_rgba(255,255,255,0.05)_2px,_transparent_2px,_transparent_8px)]" />
+    <div className="relative w-full px-4 text-black">
+      <div className="inline-flex h-12 items-end justify-center bg-white px-6">
+        <div className="inline-flex items-center gap-2 rounded-full bg-background-yellow px-3 py-[0.3rem] text-xs font-semibold text-black">
+          Related
+        </div>
+      </div>
+      <div className="flex flex-col -mt-px gap-2 bg-white px-6 pt-3 mb-5">
+        <div className="space-y-3">
+          <h3 className="story-title-clamp text-base font-bold leading-normal">
+            {card.title}
+          </h3>
+        </div>
+        <div className="mt-1 flex items-center justify-between text-sm font-semibold">
+          <ReadAction
+            slug={card.slug}
+            className="group flex items-center gap-1 transition"
+          >
+            Read
+            <ArrowIcon
+              className="h-6 w-6 transition group-hover:translate-x-1"
+              color="purple"
+            />
+          </ReadAction>
+          <div className="flex items-center gap-2 text-sm font-normal text-extra-muted">
+            <FileIcon className="h-4 w-4" />6 mins
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+);
+
 const RelatedStoryCard = ({ card }: { card: RelatedStoryCardData }) => (
   <article
-    className="relative flex h-full min-h-[320px] items-end overflow-hidden border border-white/10 pl-6 pb-6"
+    className="relative hidden h-full min-h-[360px] items-end overflow-hidden border border-white/10 pl-6 pb-6 md:flex"
     style={{
       backgroundImage: card.backgroundImage,
       backgroundSize: "cover",
@@ -116,8 +159,7 @@ const RelatedStoryCard = ({ card }: { card: RelatedStoryCardData }) => (
             />
           </ReadAction>
           <div className="flex items-center gap-2 text-sm font-normal text-extra-muted">
-            <FileIcon className="h-4 w-4" />
-            {card.meta}
+            <FileIcon className="h-4 w-4" />6 mins
           </div>
         </div>
       </div>
@@ -158,14 +200,19 @@ export const RelatedPostsSection = ({
             <ArrowIcon className="h-6 w-6" color="purple" />
           </button>
         </div>
-        <div className="mt-3 grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="mt-3 flex gap-4 overflow-x-auto pb-4 md:hidden">
+          {relatedCards.map((card) => (
+            <RelatedStoryCardMobile key={card.id} card={card} />
+          ))}
+        </div>
+        <div className="mt-3 hidden grid-cols-1 gap-6 md:grid md:grid-cols-3">
           {relatedCardSlots.map((card, index) =>
             card ? (
               <RelatedStoryCard key={card.id} card={card} />
             ) : (
               <div
                 key={`related-card-placeholder-${index}`}
-                className="hidden min-h-80 md:block"
+                className="hidden min-h-[360px] md:block"
                 aria-hidden="true"
               />
             ),
