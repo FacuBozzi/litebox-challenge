@@ -3,8 +3,8 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 ## Architecture Notes
 
 - The landing page (`src/app/page.tsx`) is a Server Component (`"use client"` is absent) so it renders entirely on the server.
-- During that render the `Home` function invokes `fetch(`${process.env.LITE_TECH_API_HOST}/api/posts?limit=14`)`, which now uses ISR with a configurable revalidation window (`LITE_TECH_REVALIDATE_SECONDS`, default 300 seconds). Set the env variable to `0` if you need to force uncached SSR again.
-- Because the data is loaded server-side, users see content on first paint and backend credentials stay on the server. Latency stays low thanks to the short payload (we only request 14 posts) and because Strapi responses are rendered in streaming HTML instead of waiting for client-side waterfalls.
+- During that render the `Home` function invokes `fetchPosts`, which requests the posts using explicit pagination parameters. The request uses ISR with a configurable revalidation window (`LITE_TECH_REVALIDATE_SECONDS`, default 300 seconds). Set the env variable to `0` if you need to force uncached SSR again.
+- Because the data is loaded server-side, users see content on first paint and backend credentials stay on the server. Latency stays low thanks to the short payload (we only request 14 posts) and because responses are rendered in streaming HTML instead of waiting for client-side waterfalls.
 - Each section of the homepage lives in its own component under `src/components/home`, which keeps rendering logic lean and lets us stream sections independently as soon as their data is ready.
 - Mock/fallback content (hero, cards, topic pills, etc.) lives in `src/data`, so the main components stay focused on rendering and production data can replace the mocks seamlessly.
 

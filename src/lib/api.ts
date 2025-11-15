@@ -59,16 +59,30 @@ export const getApiConfig = (): ApiConfig => {
   };
 };
 
+const POSTS_ENDPOINT = "/api/posts";
+
+const createPostsUrl = (origin: string, limit: number): string => {
+  const normalizedOrigin = trimTrailingSlash(origin);
+  const url = new URL(POSTS_ENDPOINT, `${normalizedOrigin}/`);
+  const params = new URLSearchParams();
+  params.set("pagination[start]", "0");
+  params.set("pagination[limit]", String(limit));
+  params.set("sort[0]", "publishedAt:desc");
+  url.search = params.toString();
+  return url.toString();
+};
+
 export const fetchPosts = async (
   host: string,
   limit = 14,
 ): Promise<PostEntity[]> => {
-  const response = await fetch(`${host}/api/posts?limit=${limit}`, {
+  const targetHost = trimTrailingSlash(host);
+  const response = await fetch(createPostsUrl(targetHost, limit), {
     ...getFetchCacheOptions(),
   });
 
   if (!response.ok) {
-    throw new Error(`Request failed with status ${response.status}`);
+    throw new Error(`Request to ${targetHost} failed with status ${response.status}`);
   }
 
   const posts: PostsResponse = await response.json();
